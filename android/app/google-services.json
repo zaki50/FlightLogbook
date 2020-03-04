@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "296908944143",
+    "firebase_url": "https://flightlogbook-a9b5d.firebaseio.com",
+    "project_id": "flightlogbook-a9b5d",
+    "storage_bucket": "flightlogbook-a9b5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296908944143:android:487d515c90f63e33b1c47a",
+        "android_client_info": {
+          "package_name": "dev.zaki50.flightlog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296908944143-f7c7jklvbv6r51fmih4pj58tonsn6e82.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.zaki50.flightlog",
+            "certificate_hash": "5196e4097608dba48757a6830c252b81335a4300"
+          }
+        },
+        {
+          "client_id": "296908944143-ukij03138q805sugfo059jngd4g5qe1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtb40U8mTDeDKLN-EU6jNPAT5NiH_6dT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296908944143-ukij03138q805sugfo059jngd4g5qe1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296908944143:android:d8bddfda635a8f13b1c47a",
+        "android_client_info": {
+          "package_name": "dev.zaki50.flightlogbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "296908944143-1eif733pgnbj2s6n7rhbtqgu9i46fioc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.zaki50.flightlogbook",
+            "certificate_hash": "5196e4097608dba48757a6830c252b81335a4300"
+          }
+        },
+        {
+          "client_id": "296908944143-ukij03138q805sugfo059jngd4g5qe1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtb40U8mTDeDKLN-EU6jNPAT5NiH_6dT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "296908944143-ukij03138q805sugfo059jngd4g5qe1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
