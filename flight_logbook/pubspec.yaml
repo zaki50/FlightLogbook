@@ -33,7 +33,12 @@ dependencies:
   cloud_firestore: ^0.13.4
 
   # https://pub.dev/packages/firebase_auth
-  firebase_auth: ^0.15.5+2
+  # DO NOT ADD ^ since it causes "UserAgent.h not found error on ios build"
+  firebase_auth: 0.15.4
+
+  # https://pub.dev/packages/firebase_core
+  # DO NOT ADD ^ since it causes "UserAgent.h not found error on ios build"
+  firebase_core: 0.4.4
 
 dev_dependencies:
   flutter_test:
