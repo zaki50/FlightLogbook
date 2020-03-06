@@ -26,15 +26,15 @@ class LoginScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (state is LoginSuccess) {
+            () async {
+              await Future.delayed(
+                  const Duration(seconds: 2), () => authBloc.add(LoggedIn()));
+            }();
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
+                children: const [
                   const Text('Success'),
-                  RaisedButton(
-                    onPressed: () => authBloc.add(LoggedIn()),
-                    child: const Text('Start Application'),
-                  ),
                 ],
               ),
             );
