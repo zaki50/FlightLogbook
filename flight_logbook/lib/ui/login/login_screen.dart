@@ -44,6 +44,7 @@ class LoginScreen extends StatelessWidget {
             );
           }
 
+          // state == LoginInitial
           return Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,

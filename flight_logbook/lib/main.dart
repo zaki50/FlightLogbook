@@ -2,6 +2,8 @@ import 'package:flightlogbook/bloc/authentication/authentication_bloc.dart';
 import 'package:flightlogbook/bloc/authentication/authentication_event.dart';
 import 'package:flightlogbook/bloc/authentication/authentication_repository.dart';
 import 'package:flightlogbook/bloc/authentication/authentication_state.dart';
+import 'package:flightlogbook/pages.dart';
+import 'package:flightlogbook/ui/add_flight/add_flight_screen.dart';
 import 'package:flightlogbook/ui/flights/flights_screen.dart';
 import 'package:flightlogbook/ui/login/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,7 @@ void main() {
 
 //const Color TRITON_BLUE = Color(0xff000099);
 const int TRITON_BLUE = 0xff002596;
+const int MOHICAN_BLUE = 0xff00A0DF;
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -83,6 +86,9 @@ class MyApp extends StatelessWidget {
           }
         },
       ),
+      routes: {
+        Pages.ADD_FLIGHT: (_) => AddFlightScreen(),
+      },
     );
   }
 }

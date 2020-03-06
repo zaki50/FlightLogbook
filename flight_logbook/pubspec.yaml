@@ -52,6 +52,9 @@ dependencies:
   # DO NOT ADD ^ since it causes "UserAgent.h not found error on ios build" (as of 0.4.4+2)
   firebase_core: 0.4.4
 
+  # https://pub.dev/packages/awesome_dialog
+  awesome_dialog: ^0.1.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

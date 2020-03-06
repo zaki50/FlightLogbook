@@ -1,3 +1,3 @@
 class Pages {
-  static const ROOT = '/';
+  static const ADD_FLIGHT = '/add_flight';
 }
