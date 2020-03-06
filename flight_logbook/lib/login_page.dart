@@ -35,8 +35,10 @@ class _LoginPageState extends State<LoginPage> {
     final s = S.of(context);
     final List form = <Widget>[
       const SizedBox(height: 24.0),
-      Text(_errorMessage,
-          style: const TextStyle(color: Colors.red),),
+      Text(
+        _errorMessage,
+        style: const TextStyle(color: Colors.red),
+      ),
       const SizedBox(height: 24.0),
       TextFormField(
           controller: _loginIdController,
@@ -103,18 +105,21 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       appBar: _appBar,
-      body: Stack(children: <Widget>[
-        Form(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: form,
+      body: Stack(
+        children: <Widget>[
+          Form(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: form,
+              ),
             ),
           ),
-        ),
-        const Center(child: CircularProgressIndicator()),
-      ],),);
+          const Center(child: CircularProgressIndicator()),
+        ],
+      ),
+    );
   }
 
   Future<void> _withProgress(Function func) async {
