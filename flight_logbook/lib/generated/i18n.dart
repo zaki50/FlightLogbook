@@ -21,6 +21,26 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get login => "Login";
+  String get loginIdLabel => "Email";
+  String get passwordLabel => "Password";
+  String get showPassword => "Show password";
+}
+
+class $ja extends S {
+  const $ja();
+
+  @override
+  TextDirection get textDirection => TextDirection.ltr;
+
+  @override
+  String get loginIdLabel => "メールアドレス";
+  @override
+  String get showPassword => "パスワードを表示";
+  @override
+  String get login => "ログイン";
+  @override
+  String get passwordLabel => "パスワード";
 }
 
 class $en extends S {
@@ -32,6 +52,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
+      Locale("ja", ""),
       Locale("en", ""),
     ];
   }
@@ -57,6 +78,9 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     final String lang = getLang(locale);
     if (lang != null) {
       switch (lang) {
+        case "ja":
+          S.current = const $ja();
+          return SynchronousFuture<S>(S.current);
         case "en":
           S.current = const $en();
           return SynchronousFuture<S>(S.current);
