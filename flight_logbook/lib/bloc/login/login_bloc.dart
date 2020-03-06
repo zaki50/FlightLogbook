@@ -12,7 +12,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _repository = repository;
 
   @override
-  LoginState get initialState => LoginEmpty();
+  LoginState get initialState => LoginInitial();
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {

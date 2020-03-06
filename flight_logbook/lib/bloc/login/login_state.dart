@@ -9,11 +9,11 @@ abstract class LoginState extends Equatable {
   List<Object> get props => _props;
 }
 
-class LoginEmpty extends LoginState {
-  LoginEmpty();
+class LoginInitial extends LoginState {
+  LoginInitial();
 
   @override
-  String toString() => 'LoginEmpty';
+  String toString() => 'LoginInitial';
 }
 
 class LoginLoading extends LoginState {
