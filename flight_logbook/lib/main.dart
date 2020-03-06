@@ -12,7 +12,7 @@ void main() {
 }
 
 //const Color TRITON_BLUE = Color(0xff000099);
-const Color TRITON_BLUE = const Color(0xff002596);
+const int TRITON_BLUE = 0xff002596;
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -30,18 +30,18 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: MaterialColor(TRITON_BLUE.value,
+        primarySwatch: const MaterialColor(TRITON_BLUE,
           <int, Color>{
-          50: const Color(0xFFE3F2FD),
-          100: const Color(0xFFBBDEFB),
-          200: const Color(0xFF90CAF9),
-          300: const Color(0xFF64B5F6),
-          400: const Color(0xFF42A5F5),
-          500: TRITON_BLUE,
-          600: const Color(0xFF1E88E5),
-          700: const Color(0xFF1976D2),
-          800: const Color(0xFF1565C0),
-          900: const Color(0xFF0D47A1),
+          50: Color(0xFFE3F2FD),
+          100: Color(0xFFBBDEFB),
+          200: Color(0xFF90CAF9),
+          300: Color(0xFF64B5F6),
+          400: Color(0xFF42A5F5),
+          500: Color(TRITON_BLUE),
+          600: Color(0xFF1E88E5),
+          700: Color(0xFF1976D2),
+          800: Color(0xFF1565C0),
+          900: Color(0xFF0D47A1),
         },
         ),
         //primarySwatch: Colors.blue,
