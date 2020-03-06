@@ -1,6 +1,6 @@
-import 'package:flightlogbook/auth/authentication_event.dart';
-import 'package:flightlogbook/auth/authentication_repository.dart';
-import 'package:flightlogbook/auth/authentication_state.dart';
+import 'package:flightlogbook/bloc/authentication/authentication_event.dart';
+import 'package:flightlogbook/bloc/authentication/authentication_repository.dart';
+import 'package:flightlogbook/bloc/authentication/authentication_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

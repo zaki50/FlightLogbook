@@ -1,13 +1,27 @@
-import 'package:flightlogbook/login_page.dart';
-import 'package:flightlogbook/pages.dart';
+import 'package:flightlogbook/bloc/authentication/authentication_bloc.dart';
+import 'package:flightlogbook/bloc/authentication/authentication_event.dart';
+import 'package:flightlogbook/bloc/authentication/authentication_repository.dart';
+import 'package:flightlogbook/bloc/authentication/authentication_state.dart';
+import 'package:flightlogbook/ui/flights/flights_screen.dart';
+import 'package:flightlogbook/ui/login/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'generated/i18n.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MyApp());
+
+  final authenticationRepository = FirebaseAuthenticationRepository();
+  runApp(
+    BlocProvider<AuthenticationBloc>(
+      create: (BuildContext) => AuthenticationBloc(
+        repository: authenticationRepository,
+      )..add(AppStarted()),
+      child: MyApp(),
+    ),
+  );
 }
 
 //const Color TRITON_BLUE = Color(0xff000099);
@@ -17,6 +31,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final authBloc = BlocProvider.of<AuthenticationBloc>(context);
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -53,9 +69,20 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      routes: {
-        Pages.ROOT: (_) => LoginPage(),
-      },
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        bloc: BlocProvider.of(context),
+        builder: (context, state) {
+          if (state is AuthenticationInProgress) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is AuthenticationSuccess) {
+            return FlightListScreen();
+          } else if (state is AuthenticationFailure) {
+            return LoginScreen();
+          } else {
+            return Container();
+          }
+        },
+      ),
     );
   }
 }

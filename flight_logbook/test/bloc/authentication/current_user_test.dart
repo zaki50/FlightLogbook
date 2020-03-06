@@ -1,4 +1,4 @@
-import 'package:flightlogbook/auth/current_user.dart';
+import 'package:flightlogbook/bloc/authentication/current_user.dart';
 import 'package:test/test.dart';
 
 void main() {

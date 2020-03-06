@@ -1,6 +1,4 @@
-import 'package:flightlogbook/auth/authentication_event.dart';
-import 'package:flightlogbook/auth/authentication_state.dart';
-import 'package:flightlogbook/auth/current_user.dart';
+import 'package:flightlogbook/bloc/authentication/authentication_event.dart';
 import 'package:test/test.dart';
 
 void main() {

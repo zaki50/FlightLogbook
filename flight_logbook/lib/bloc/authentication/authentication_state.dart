@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flightlogbook/auth/current_user.dart';
+import 'package:flightlogbook/bloc/authentication/current_user.dart';
 
 abstract class AuthenticationState extends Equatable {
   final List _props;
