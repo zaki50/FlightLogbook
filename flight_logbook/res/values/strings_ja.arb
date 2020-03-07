@@ -27,6 +27,8 @@
     "placeholders": {}
   },
 
+  "login_failure": "ログインできませんでした。",
+
   "logout": "ログアウト",
 
   "actionLabel_add": "追加",

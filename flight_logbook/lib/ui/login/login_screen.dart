@@ -4,21 +4,22 @@ import 'package:flightlogbook/bloc/login/login_bloc.dart';
 import 'package:flightlogbook/bloc/login/login_event.dart';
 import 'package:flightlogbook/bloc/login/login_repository.dart';
 import 'package:flightlogbook/bloc/login/login_state.dart';
+import 'package:flightlogbook/generated/i18n.dart';
 import 'package:flightlogbook/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends StatelessWidget {
-  final _appBar = AppBar(title: const Text('Login'));
-
   @override
   Widget build(BuildContext context) {
     final loginBloc = LoginBloc(repository: FirebaseLoginRepository());
     final authBloc = BlocProvider.of<AuthenticationBloc>(context);
 
+    final S s = S.of(context);
+
     return Scaffold(
-      appBar: _appBar,
+      appBar: AppBar(title: Text(s.login)),
       body: Container(
         color: const Color(MOHICAN_BLUE),
         child: BlocBuilder<LoginBloc, LoginState>(
@@ -33,8 +34,17 @@ class LoginScreen extends StatelessWidget {
                   () => authBloc.add(LoggedIn()));
               return Container();
             } else if (state is LoginFailure) {
-              return const Center(
-                child: Text('Failure'),
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(s.login_failure),
+                    ),
+                    _buildLoginButton(loginBloc),
+                  ],
+                ),
               );
             }
 
@@ -43,18 +53,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  RaisedButton.icon(
-                    icon: Icon(
-                      FontAwesomeIcons.google,
-                      color: Colors.white,
-                    ),
-                    label: const Text(
-                      'Login with google',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    color: const Color(TRITON_BLUE),
-                    onPressed: () => loginBloc.add(LoginWithGoogleOnPressed()),
-                  ),
+                  _buildLoginButton(loginBloc),
                 ],
               ),
             );
@@ -63,4 +62,17 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+
+  RaisedButton _buildLoginButton(LoginBloc loginBloc) => RaisedButton.icon(
+        icon: Icon(
+          FontAwesomeIcons.google,
+          color: Colors.white,
+        ),
+        label: const Text(
+          'Login with google',
+          style: TextStyle(color: Colors.white),
+        ),
+        color: const Color(TRITON_BLUE),
+        onPressed: () => loginBloc.add(LoginWithGoogleOnPressed()),
+      );
 }

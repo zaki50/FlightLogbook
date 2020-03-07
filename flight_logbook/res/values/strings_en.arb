@@ -27,6 +27,8 @@
     "placeholders": {}
   },
 
+  "login_failure": "Login failure",
+
   "logout": "Logout",
 
   "actionLabel_add": "Add",
