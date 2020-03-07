@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (state is LoginSuccess) {
-              Future.delayed(const Duration(milliseconds: 10),
+              Future.delayed(const Duration(milliseconds: 100),
                   () => authBloc.add(LoggedIn()));
               return Container();
             } else if (state is LoginFailure) {
