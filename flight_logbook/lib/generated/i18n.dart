@@ -14,7 +14,7 @@ class S implements WidgetsLocalizations {
   static S current;
 
   static const GeneratedLocalizationsDelegate delegate =
-    GeneratedLocalizationsDelegate();
+      GeneratedLocalizationsDelegate();
 
   static S of(BuildContext context) => Localizations.of<S>(context, S);
 
@@ -31,6 +31,7 @@ class S implements WidgetsLocalizations {
   String get flightFieldLabel_flightNumber => "Flight Number";
   String get login => "Login";
   String get loginIdLabel => "Email";
+  String get mandatory => "(mandatory)";
   String get passwordLabel => "Password";
   String get showPassword => "Show password";
 }
@@ -42,9 +43,15 @@ class $ja extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
-  String get loginIdLabel => "メールアドレス";
-  @override
   String get flightFieldLabel_aircraftType => "機材";
+  @override
+  String get login => "ログイン";
+  @override
+  String get mandatory => "(必須)";
+  @override
+  String get passwordLabel => "パスワード";
+  @override
+  String get loginIdLabel => "メールアドレス";
   @override
   String get flightFieldLabel_flightNumber => "便名";
   @override
@@ -60,11 +67,7 @@ class $ja extends S {
   @override
   String get actionLabel_add => "追加";
   @override
-  String get login => "ログイン";
-  @override
   String get flightFieldLabel_departureAirport => "出発空港";
-  @override
-  String get passwordLabel => "パスワード";
 }
 
 class $en extends S {
@@ -81,7 +84,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     ];
   }
 
-  LocaleListResolutionCallback listResolution({Locale fallback, bool withCountry = true}) {
+  LocaleListResolutionCallback listResolution(
+      {Locale fallback, bool withCountry = true}) {
     return (List<Locale> locales, Iterable<Locale> supported) {
       if (locales == null || locales.isEmpty) {
         return fallback ?? supported.first;
@@ -91,7 +95,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     };
   }
 
-  LocaleResolutionCallback resolution({Locale fallback, bool withCountry = true}) {
+  LocaleResolutionCallback resolution(
+      {Locale fallback, bool withCountry = true}) {
     return (Locale locale, Iterable<Locale> supported) {
       return _resolve(locale, fallback, supported, withCountry);
     };
@@ -109,7 +114,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
           S.current = const $en();
           return SynchronousFuture<S>(S.current);
         default:
-          // NO-OP.
+        // NO-OP.
       }
     }
     S.current = const S();
@@ -125,7 +130,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
   ///
   /// Internal method to resolve a locale from a list of locales.
   ///
-  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported, bool withCountry) {
+  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported,
+      bool withCountry) {
     if (locale == null || !_isSupported(locale, withCountry)) {
       return fallback ?? supported.first;
     }
@@ -158,7 +164,9 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
         }
 
         // If no country requirement is requested, check if this locale has no country.
-        if (true != withCountry && (supportedLocale.countryCode == null || supportedLocale.countryCode.isEmpty)) {
+        if (true != withCountry &&
+            (supportedLocale.countryCode == null ||
+                supportedLocale.countryCode.isEmpty)) {
           return true;
         }
       }
@@ -168,7 +176,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
 }
 
 String getLang(Locale l) => l == null
-  ? null
-  : l.countryCode != null && l.countryCode.isEmpty
-    ? l.languageCode
-    : l.toString();
+    ? null
+    : l.countryCode != null && l.countryCode.isEmpty
+        ? l.languageCode
+        : l.toString();

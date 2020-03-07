@@ -35,5 +35,7 @@
   "flightFieldLabel_departureAirport": "出発空港",
   "flightFieldLabel_arrivalAirport": "到着空港",
   "flightFieldLabel_aircraftType": "機材",
-  "flightFieldLabel_aircraftRegistration": "機体記号"
+  "flightFieldLabel_aircraftRegistration": "機体記号",
+
+  "mandatory": "(必須)"
 }

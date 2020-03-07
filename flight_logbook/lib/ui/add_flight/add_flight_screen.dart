@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flightlogbook/bloc/flights/flight_entry.dart';
 import 'package:flightlogbook/generated/i18n.dart';
+import 'package:flightlogbook/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -123,11 +124,7 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: _fields
                 .map(
-                  (e) => _buildTextField(
-                    e.editingController,
-                    e.label,
-                    e.valueExample,
-                  ),
+                  (e) => _buildTextField(e, s),
                 )
                 .toList(),
           ),
@@ -144,17 +141,16 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
                 _checkNotEmpty(context, e.editingController.text, e.label)),
       );
 
-  static Widget _buildTextField(
-      TextEditingController controller, String labelText, String hintText) {
+  static Widget _buildTextField(_FieldEntry entry, S s) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: TextFormField(
-        controller: controller,
+        controller: entry.editingController,
         decoration: new InputDecoration(
-          labelText: labelText,
-          hintText: hintText,
+          labelText: "${entry.label}${entry.mandatory ? s.mandatory : ''}",
+          hintText: entry.valueExample,
           border: new OutlineInputBorder(
-              borderSide: new BorderSide(color: Colors.black)),
+              borderSide: new BorderSide(color: Color(TRITON_BLUE))),
         ),
       ),
     );
