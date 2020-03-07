@@ -21,6 +21,14 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get actionLabel_add => "Add";
+  String get flightFieldLabel_aircraftRegistration => "Aircraft Registration";
+  String get flightFieldLabel_aircraftType => "Aircraft Type";
+  String get flightFieldLabel_airline => "Airline";
+  String get flightFieldLabel_arrivalAirport => "Arrival Airport";
+  String get flightFieldLabel_departureAirport => "Departure Airport";
+  String get flightFieldLabel_departureDate => "Date";
+  String get flightFieldLabel_flightNumber => "Flight Number";
   String get login => "Login";
   String get loginIdLabel => "Email";
   String get passwordLabel => "Password";
@@ -36,9 +44,25 @@ class $ja extends S {
   @override
   String get loginIdLabel => "メールアドレス";
   @override
+  String get flightFieldLabel_aircraftType => "機材";
+  @override
+  String get flightFieldLabel_flightNumber => "便名";
+  @override
+  String get flightFieldLabel_airline => "航空会社";
+  @override
+  String get flightFieldLabel_arrivalAirport => "到着空港";
+  @override
+  String get flightFieldLabel_departureDate => "搭乗日";
+  @override
+  String get flightFieldLabel_aircraftRegistration => "機体記号";
+  @override
   String get showPassword => "パスワードを表示";
   @override
+  String get actionLabel_add => "追加";
+  @override
   String get login => "ログイン";
+  @override
+  String get flightFieldLabel_departureAirport => "出発空港";
   @override
   String get passwordLabel => "パスワード";
 }

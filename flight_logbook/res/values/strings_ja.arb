@@ -25,5 +25,15 @@
     "description": "ログインボタンのラベル",
     "type": "text",
     "placeholders": {}
-  }
+  },
+
+  "actionLabel_add": "追加",
+
+  "flightFieldLabel_departureDate": "搭乗日",
+  "flightFieldLabel_airline": "航空会社",
+  "flightFieldLabel_flightNumber": "便名",
+  "flightFieldLabel_departureAirport": "出発空港",
+  "flightFieldLabel_arrivalAirport": "到着空港",
+  "flightFieldLabel_aircraftType": "機材",
+  "flightFieldLabel_aircraftRegistration": "機体記号"
 }

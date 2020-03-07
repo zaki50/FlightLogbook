@@ -25,5 +25,15 @@
     "description": "Label for login button",
     "type": "text",
     "placeholders": {}
-  }
+  },
+
+  "actionLabel_add": "Add",
+
+  "flightFieldLabel_departureDate": "Date",
+  "flightFieldLabel_airline": "Airline",
+  "flightFieldLabel_flightNumber": "Flight Number",
+  "flightFieldLabel_departureAirport": "Departure Airport",
+  "flightFieldLabel_arrivalAirport": "Arrival Airport",
+  "flightFieldLabel_aircraftType": "Aircraft Type",
+  "flightFieldLabel_aircraftRegistration": "Aircraft Registration"
 }

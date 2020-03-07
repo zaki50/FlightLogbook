@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flightlogbook/bloc/flights/flight_entry.dart';
+import 'package:flightlogbook/generated/i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -10,14 +11,24 @@ class AddFlightScreen extends StatefulWidget {
   _AddFlightScreenState createState() => _AddFlightScreenState();
 }
 
+class _FieldEntry {
+  final String fieldName;
+  final String label;
+  final String valueExample;
+  final TextEditingController editingController;
+
+  _FieldEntry({
+    @required this.fieldName,
+    @required this.label,
+    @required this.valueExample,
+  })  : assert(fieldName != null && fieldName.isNotEmpty),
+        assert(label != null && label.isNotEmpty),
+        assert(valueExample != null && valueExample.isNotEmpty),
+        editingController = TextEditingController();
+}
+
 class _AddFlightScreenState extends State<AddFlightScreen> {
-  final _departureDateController = TextEditingController();
-  final _airlineController = TextEditingController();
-  final _flightNumberController = TextEditingController();
-  final _departureAirportController = TextEditingController();
-  final _arrivalAirportController = TextEditingController();
-  final _aircraftTypeController = TextEditingController();
-  final _aircraftRegistrationController = TextEditingController();
+  List<_FieldEntry> _fields;
 
   bool _isSaving;
 
@@ -28,38 +39,67 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final S s = S.of(context);
+    _fields = [
+      _FieldEntry(
+          fieldName: FlightEntry.FIELD_DEPARTURE_DATE,
+          label: s.flightFieldLabel_departureDate,
+          valueExample:
+              "例: ${DateFormat('yyyy/MM/dd').format(DateTime.now())}"),
+      _FieldEntry(
+          fieldName: FlightEntry.FIELD_AIRLINE,
+          label: s.flightFieldLabel_airline,
+          valueExample: '例: ANA'),
+      _FieldEntry(
+          fieldName: FlightEntry.FIELD_FLIGHT_NUMBER,
+          label: s.flightFieldLabel_flightNumber,
+          valueExample: '例: NH885'),
+      _FieldEntry(
+          fieldName: FlightEntry.FIELD_FROM,
+          label: s.flightFieldLabel_departureAirport,
+          valueExample: '例: HND'),
+      _FieldEntry(
+          fieldName: FlightEntry.FIELD_TO,
+          label: s.flightFieldLabel_arrivalAirport,
+          valueExample: '例: KUL'),
+      _FieldEntry(
+          fieldName: FlightEntry.FIELD_AIRCRAFT_TYPE,
+          label: s.flightFieldLabel_aircraftType,
+          valueExample: '例: B787-9'),
+      _FieldEntry(
+          fieldName: FlightEntry.FIELD_AIRCRAFT_REGISTRATION,
+          label: s.flightFieldLabel_aircraftRegistration,
+          valueExample: '例: JA890A'),
+    ];
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final df = DateFormat('yyyy/MM/dd');
+    final S s = S.of(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('フライトを追加'),
         actions: <Widget>[
           FlatButton(
-            child: const Text(
-              '追加',
+            child: Text(
+              s.actionLabel_add,
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () async {
               if (_validateFields()) {
                 // TODO: ちゃんとBlocで実装する
 
-                final uid = (await FirebaseAuth.instance.currentUser()).uid;
+                final String uid =
+                    (await FirebaseAuth.instance.currentUser()).uid;
                 await Firestore.instance.collection("/users/$uid/flights").add(
-                  {
-                    FlightEntry.FIELD_DEPARTURE_DATE:
-                        _departureDateController.text,
-                    FlightEntry.FIELD_AIRLINE: _airlineController.text,
-                    FlightEntry.FIELD_FLIGHT_NUMBER:
-                        _flightNumberController.text,
-                    FlightEntry.FIELD_FROM: _departureAirportController.text,
-                    FlightEntry.FIELD_TO: _arrivalAirportController.text,
-                    FlightEntry.FIELD_AIRCRAFT_TYPE:
-                        _aircraftTypeController.text,
-                    FlightEntry.FIELD_AIRCRAFT_REGISTRATION:
-                        _aircraftRegistrationController.text,
-                    FlightEntry.FIELD_UID: uid,
-                  },
-                );
+                      _fields.asMap().map<String, dynamic>(
+                            (_, _FieldEntry e) =>
+                                MapEntry(e.fieldName, e.editingController.text),
+                          )..putIfAbsent(FlightEntry.FIELD_UID, () => uid),
+                    );
                 Navigator.pop(context);
               }
             },
@@ -71,48 +111,27 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              _buildTextField(
-                  _departureDateController, '搭乗日', df.format(DateTime.now())),
-              _buildTextField(_airlineController, '航空会社', 'ANA'),
-              _buildTextField(_flightNumberController, '便名', 'NH885'),
-              _buildTextField(_departureAirportController, '出発空港', 'HND'),
-              _buildTextField(_arrivalAirportController, '到着空港', 'KUL'),
-              _buildTextField(_aircraftTypeController, '機材', 'B787-9'),
-              _buildTextField(
-                  _aircraftRegistrationController, '機体記号', 'JA890A'),
-            ],
+            children: _fields
+                .map(
+                  (e) => _buildTextField(
+                    e.editingController,
+                    e.label,
+                    e.valueExample,
+                  ),
+                )
+                .toList(),
           ),
         ),
       ),
     );
   }
 
-  bool _validateFields() {
-    if (!_checkNotEmpty(context, _departureDateController.text, '搭乗日')) {
-      return false;
-    }
-    if (!_checkNotEmpty(context, _airlineController.text, '航空会社')) {
-      return false;
-    }
-    if (!_checkNotEmpty(context, _flightNumberController.text, '便名')) {
-      return false;
-    }
-    if (!_checkNotEmpty(context, _departureAirportController.text, '出発空港')) {
-      return false;
-    }
-    if (!_checkNotEmpty(context, _arrivalAirportController.text, '到着空港')) {
-      return false;
-    }
-    if (!_checkNotEmpty(context, _aircraftTypeController.text, '機材')) {
-      return false;
-    }
-    if (!_checkNotEmpty(
-        context, _aircraftRegistrationController.text, '機体記号')) {
-      return false;
-    }
-    return true;
-  }
+  bool _validateFields() => _fields.fold(
+        true,
+        (stillValid, e) =>
+            stillValid &&
+            _checkNotEmpty(context, e.editingController.text, e.label),
+      );
 
   static Widget _buildTextField(
       TextEditingController controller, String labelText, String hintText) {
