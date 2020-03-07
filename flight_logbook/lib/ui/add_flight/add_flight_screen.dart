@@ -43,19 +43,23 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
               if (_validateFields()) {
                 // TODO: ちゃんとBlocで実装する
 
-                await Firestore.instance.collection('/flights').add({
-                  FlightEntry.FIELD_DEPARTURE_DATE:
-                      _departureDateController.text,
-                  FlightEntry.FIELD_AIRLINE: _airlineController.text,
-                  FlightEntry.FIELD_FLIGHT_NUMBER: _flightNumberController.text,
-                  FlightEntry.FIELD_FROM: _departureAirportController.text,
-                  FlightEntry.FIELD_TO: _arrivalAirportController.text,
-                  FlightEntry.FIELD_AIRCRAFT_TYPE: _aircraftTypeController.text,
-                  FlightEntry.FIELD_AIRCRAFT_REGISTRATION:
-                      _aircraftRegistrationController.text,
-                  FlightEntry.FIELD_UID:
-                      (await FirebaseAuth.instance.currentUser()).uid,
-                });
+                final uid = (await FirebaseAuth.instance.currentUser()).uid;
+                await Firestore.instance.collection("/users/$uid/flights").add(
+                  {
+                    FlightEntry.FIELD_DEPARTURE_DATE:
+                        _departureDateController.text,
+                    FlightEntry.FIELD_AIRLINE: _airlineController.text,
+                    FlightEntry.FIELD_FLIGHT_NUMBER:
+                        _flightNumberController.text,
+                    FlightEntry.FIELD_FROM: _departureAirportController.text,
+                    FlightEntry.FIELD_TO: _arrivalAirportController.text,
+                    FlightEntry.FIELD_AIRCRAFT_TYPE:
+                        _aircraftTypeController.text,
+                    FlightEntry.FIELD_AIRCRAFT_REGISTRATION:
+                        _aircraftRegistrationController.text,
+                    FlightEntry.FIELD_UID: uid,
+                  },
+                );
                 Navigator.pop(context);
               }
             },

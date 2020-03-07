@@ -24,7 +24,7 @@ class FirestoreFlightsRepository extends FlightsRepository {
 
     // TODO orderByで順序を指定する
     return _firestore
-        .collection('/flights')
+        .collection("/users/${currentUser.id}/flights")
         .where(FlightEntry.FIELD_UID, isEqualTo: currentUser.id)
         .getDocuments()
         .then(
