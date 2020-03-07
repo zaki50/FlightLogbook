@@ -17,8 +17,8 @@ void main() {
 
   final authenticationRepository = FirebaseAuthenticationRepository();
   runApp(
-    BlocProvider<AuthenticationBloc>(
-      create: (BuildContext) => AuthenticationBloc(
+    BlocProvider.value(
+      value: AuthenticationBloc(
         repository: authenticationRepository,
       )..add(AppStarted()),
       child: MyApp(),
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
       ],
       supportedLocales: S.delegate.supportedLocales,
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-        bloc: BlocProvider.of(context),
+        bloc: context.bloc(),
         builder: (context, state) {
           if (state is AuthenticationInProgress) {
             return const Center(child: CircularProgressIndicator());
