@@ -58,11 +58,11 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
           label: s.flightFieldLabel_flightNumber,
           valueExample: '例: NH885'),
       _FieldEntry(
-          fieldName: FlightEntry.FIELD_FROM,
+          fieldName: FlightEntry.FIELD_DEPARTURE_AIRPORT,
           label: s.flightFieldLabel_departureAirport,
           valueExample: '例: HND'),
       _FieldEntry(
-          fieldName: FlightEntry.FIELD_TO,
+          fieldName: FlightEntry.FIELD_ARRIVAL_AIRPORT,
           label: s.flightFieldLabel_arrivalAirport,
           valueExample: '例: KUL'),
       _FieldEntry(

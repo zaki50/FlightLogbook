@@ -94,13 +94,15 @@ class FlightListScreen extends StatelessWidget {
                   height: rowHeight,
                   child: Center(
                       child: Text(
-                          item.data[FlightEntry.FIELD_FROM] ?? ''.toString())),
+                          item.data[FlightEntry.FIELD_DEPARTURE_AIRPORT] ??
+                              ''.toString())),
                 ),
                 SizedBox(
                   height: rowHeight,
                   child: Center(
                       child: Text(
-                          item.data[FlightEntry.FIELD_TO] ?? ''.toString())),
+                          item.data[FlightEntry.FIELD_ARRIVAL_AIRPORT] ??
+                              ''.toString())),
                 ),
                 SizedBox(
                   height: rowHeight,
