@@ -15,15 +15,18 @@ class _FieldEntry {
   final String fieldName;
   final String label;
   final String valueExample;
+  final bool mandatory;
   final TextEditingController editingController;
 
   _FieldEntry({
     @required this.fieldName,
     @required this.label,
     @required this.valueExample,
+    this.mandatory = false,
   })  : assert(fieldName != null && fieldName.isNotEmpty),
         assert(label != null && label.isNotEmpty),
         assert(valueExample != null && valueExample.isNotEmpty),
+        assert(mandatory != null),
         editingController = TextEditingController();
 }
 
@@ -45,34 +48,41 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
     final S s = S.of(context);
     _fields = [
       _FieldEntry(
-          fieldName: FlightEntry.FIELD_DEPARTURE_DATE,
-          label: s.flightFieldLabel_departureDate,
-          valueExample:
-              "例: ${DateFormat('yyyy/MM/dd').format(DateTime.now())}"),
+        fieldName: FlightEntry.FIELD_DEPARTURE_DATE,
+        label: s.flightFieldLabel_departureDate,
+        valueExample: "例: ${DateFormat('yyyy/MM/dd').format(DateTime.now())}",
+        mandatory: true,
+      ),
       _FieldEntry(
-          fieldName: FlightEntry.FIELD_AIRLINE,
-          label: s.flightFieldLabel_airline,
-          valueExample: '例: ANA'),
+        fieldName: FlightEntry.FIELD_AIRLINE,
+        label: s.flightFieldLabel_airline,
+        valueExample: '例: ANA',
+      ),
       _FieldEntry(
-          fieldName: FlightEntry.FIELD_FLIGHT_NUMBER,
-          label: s.flightFieldLabel_flightNumber,
-          valueExample: '例: NH885'),
+        fieldName: FlightEntry.FIELD_FLIGHT_NUMBER,
+        label: s.flightFieldLabel_flightNumber,
+        valueExample: '例: NH885',
+      ),
       _FieldEntry(
-          fieldName: FlightEntry.FIELD_DEPARTURE_AIRPORT,
-          label: s.flightFieldLabel_departureAirport,
-          valueExample: '例: HND'),
+        fieldName: FlightEntry.FIELD_DEPARTURE_AIRPORT,
+        label: s.flightFieldLabel_departureAirport,
+        valueExample: '例: HND',
+      ),
       _FieldEntry(
-          fieldName: FlightEntry.FIELD_ARRIVAL_AIRPORT,
-          label: s.flightFieldLabel_arrivalAirport,
-          valueExample: '例: KUL'),
+        fieldName: FlightEntry.FIELD_ARRIVAL_AIRPORT,
+        label: s.flightFieldLabel_arrivalAirport,
+        valueExample: '例: KUL',
+      ),
       _FieldEntry(
-          fieldName: FlightEntry.FIELD_AIRCRAFT_TYPE,
-          label: s.flightFieldLabel_aircraftType,
-          valueExample: '例: B787-9'),
+        fieldName: FlightEntry.FIELD_AIRCRAFT_TYPE,
+        label: s.flightFieldLabel_aircraftType,
+        valueExample: '例: B787-9',
+      ),
       _FieldEntry(
-          fieldName: FlightEntry.FIELD_AIRCRAFT_REGISTRATION,
-          label: s.flightFieldLabel_aircraftRegistration,
-          valueExample: '例: JA890A'),
+        fieldName: FlightEntry.FIELD_AIRCRAFT_REGISTRATION,
+        label: s.flightFieldLabel_aircraftRegistration,
+        valueExample: '例: JA890A',
+      ),
     ];
   }
 
@@ -130,7 +140,8 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
         true,
         (stillValid, e) =>
             stillValid &&
-            _checkNotEmpty(context, e.editingController.text, e.label),
+            (!e.mandatory ||
+                _checkNotEmpty(context, e.editingController.text, e.label)),
       );
 
   static Widget _buildTextField(
