@@ -27,6 +27,8 @@
     "placeholders": {}
   },
 
+  "logout": "ログアウト",
+
   "actionLabel_add": "追加",
 
   "flightFieldLabel_departureDate": "搭乗日",

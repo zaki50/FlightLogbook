@@ -1,14 +1,18 @@
+import 'package:flightlogbook/bloc/authentication/authentication_bloc.dart';
+import 'package:flightlogbook/bloc/authentication/authentication_event.dart';
 import 'package:flightlogbook/bloc/authentication/authentication_repository.dart';
 import 'package:flightlogbook/bloc/flights/flight_entry.dart';
 import 'package:flightlogbook/bloc/flights/flights_bloc.dart';
 import 'package:flightlogbook/bloc/flights/flights_event.dart';
 import 'package:flightlogbook/bloc/flights/flights_repository.dart';
 import 'package:flightlogbook/bloc/flights/flights_state.dart';
+import 'package:flightlogbook/generated/i18n.dart';
 import 'package:flightlogbook/main.dart';
 import 'package:flightlogbook/pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FlightListScreen extends StatelessWidget {
   final _appBar = AppBar(title: const Text('Flight Logbook'));
@@ -21,8 +25,26 @@ class FlightListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final S s = S.of(context);
+
+    final AuthenticationBloc authBloc =
+        BlocProvider.of<AuthenticationBloc>(context);
+
     return Scaffold(
       appBar: _appBar,
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text(s.logout),
+              leading: Icon(FontAwesomeIcons.signOutAlt),
+              onTap: () {
+                authBloc.add(LoggedOut());
+              },
+            ),
+          ],
+        ),
+      ),
       body: BlocBuilder<FlightsBloc, FlightsState>(
         bloc: _flightsBloc,
         builder: (context, state) {
