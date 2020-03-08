@@ -60,7 +60,7 @@ class FirestoreFlightsRepository extends FlightsRepository {
   Future<FlightEntry> addFlight(FlightEntry newEntry) async {
     final currentUser = await _authRepository.getCurrentUser();
 
-    final data = Map.from(newEntry.data);
+    final Map<String, dynamic> data = Map.from(newEntry.data);
     data[FlightEntry.FIELD_UID] = currentUser.id;
     final DocumentReference createdDocRef = await Firestore.instance
         .collection(flightsCollectionPathOf(uid: currentUser.id))
