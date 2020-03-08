@@ -142,6 +142,7 @@ class FlightListScreen extends StatelessWidget {
     FlightEntry item,
   ) =>
       SizeTransition(
+        key: Key(item.id),
         sizeFactor: animation,
         child: Slidable(
           controller: controller,
@@ -193,7 +194,6 @@ class FlightListScreen extends StatelessWidget {
               ),
             ),
             child: Table(
-              key: Key(item.id),
               border: TableBorder.symmetric(
                 inside: const BorderSide(
                   width: 0.5,
