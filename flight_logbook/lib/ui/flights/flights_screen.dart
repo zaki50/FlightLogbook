@@ -142,7 +142,7 @@ class FlightListScreen extends StatelessWidget {
     FlightEntry item,
   ) =>
       SizeTransition(
-        key: Key(item.id),
+        key: Key(item.id), // リストアイテムを識別するためのキー。最上位のWidgetにセットすること
         sizeFactor: animation,
         child: Slidable(
           controller: controller,
