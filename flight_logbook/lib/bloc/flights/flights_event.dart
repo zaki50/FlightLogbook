@@ -13,3 +13,11 @@ class LoadAllFlights extends FlightsEvent {
   @override
   String toString() => 'LoadAllFlights';
 }
+
+class RemoveFlight extends FlightsEvent {
+  final String flightId;
+
+  RemoveFlight(this.flightId) : super([flightId]);
+  @override
+  String toString() => 'RemoveFlight';
+}

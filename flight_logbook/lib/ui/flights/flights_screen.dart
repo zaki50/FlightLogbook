@@ -12,6 +12,7 @@ import 'package:flightlogbook/pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FlightListScreen extends StatelessWidget {
@@ -46,6 +47,8 @@ class FlightListScreen extends StatelessWidget {
       ),
       body: BlocBuilder<FlightsBloc, FlightsState>(
         bloc: _flightsBloc,
+        condition: (FlightsState previous, FlightsState current) =>
+            !(current is RemovingFlight || current is RemoveFlightSuccess),
         builder: (context, state) {
           if (state is FlightsInitial) {
             _flightsBloc.add(LoadAllFlights());
@@ -55,10 +58,18 @@ class FlightListScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else if (state is FlightsSuccess) {
-            return _buildFlightList(state.flights, _flightsBloc);
+            return _buildFlightList(
+              state.flights,
+            );
           } else if (state is FlightsFailure) {
             return const Center(
               child: Text('データの読み込みに失敗しました。'),
+            );
+          } else if (state is RemoveFlightFailure) {
+            Future.delayed(const Duration(seconds: 2),
+                () => _flightsBloc.add(LoadAllFlights()));
+            return const Center(
+              child: Text('データの削除に失敗しました。'),
             );
           }
           debugPrint("missing state branch for ${state.toString()}");
@@ -74,16 +85,95 @@ class FlightListScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFlightList(List<FlightEntry> flights, FlightsBloc flightsBloc) {
+  Widget _buildFlightList(List<FlightEntry> flights) {
+    //要素を削除する場合があるのでコピー
+    flights = List.from(flights);
     final double rowHeight = 48.0;
+
+    // set single controller to each item in order to open at most one item.
+    final SlidableController controller = SlidableController();
+    final GlobalKey<AnimatedListState> listKey = GlobalKey();
     return RefreshIndicator(
-      child: ListView.builder(
-        itemCount: flights.length,
-        itemBuilder: (BuildContext context, int index) {
+      child: AnimatedList(
+        key: listKey,
+        initialItemCount: flights.length,
+        itemBuilder: (
+          BuildContext context,
+          int index,
+          Animation animation,
+        ) {
           final FlightEntry item = flights[index];
-          return Table(
+          return _buildListItem(
+            listKey,
+            controller,
+            animation,
+            rowHeight,
+            flights,
+            item,
+          );
+        },
+      ),
+      onRefresh: () {
+        _flightsBloc.add(LoadAllFlights());
+        return Future.value();
+      },
+    );
+  }
+
+  Widget _buildListItem(
+    GlobalKey<AnimatedListState> listKey,
+    SlidableController controller,
+    Animation animation,
+    double rowHeight,
+    List<FlightEntry> flights,
+    FlightEntry item,
+  ) {
+    return SizeTransition(
+      sizeFactor: animation,
+      child: Slidable(
+        controller: controller,
+        actionPane: const SlidableScrollActionPane(),
+        actions: <Widget>[
+          IconSlideAction(
+            caption: 'Delete',
+            color: Colors.red,
+            icon: Icons.delete,
+            closeOnTap: false,
+            onTap: () {
+              final removingIndex = flights.indexOf(item);
+              final removing = flights.removeAt(removingIndex);
+              AnimatedListRemovedItemBuilder builder = (context, animation) {
+                return _buildListItem(
+                  listKey,
+                  controller,
+                  animation,
+                  rowHeight,
+                  flights,
+                  removing,
+                );
+              };
+              listKey.currentState.removeItem(removingIndex, builder);
+              _flightsBloc.add(RemoveFlight(removing.id));
+            },
+          ),
+        ],
+        child: Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                width: 0.5,
+                color: Colors.black38,
+              ),
+            ),
+          ),
+          child: Table(
             key: Key(item.id),
-            border: TableBorder.all(width: 0.5),
+            border: TableBorder.symmetric(
+              inside: const BorderSide(
+                width: 0.5,
+                color: Colors.black38,
+              ),
+            ),
             columnWidths: const {
               0: FixedColumnWidth(80.0),
               3: FixedColumnWidth(36.0),
@@ -142,13 +232,9 @@ class FlightListScreen extends StatelessWidget {
                 ),
               ]),
             ],
-          );
-        },
+          ),
+        ),
       ),
-      onRefresh: () {
-        flightsBloc.add(LoadAllFlights());
-        return Future.value();
-      },
     );
   }
 }

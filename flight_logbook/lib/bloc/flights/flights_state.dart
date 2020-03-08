@@ -39,3 +39,27 @@ class FlightsFailure extends FlightsState {
   @override
   String toString() => 'FlightsFailure';
 }
+
+class RemovingFlight extends FlightsState {
+  final String flightId;
+  RemovingFlight(this.flightId) : super([flightId]);
+
+  @override
+  String toString() => 'RemovingFlight';
+}
+
+class RemoveFlightSuccess extends FlightsState {
+  final String flightId;
+  RemoveFlightSuccess(this.flightId) : super([flightId]);
+
+  @override
+  String toString() => 'RemoveFlightSuccess';
+}
+
+class RemoveFlightFailure extends FlightsState {
+  final String flightId;
+  RemoveFlightFailure(this.flightId) : super([flightId]);
+
+  @override
+  String toString() => 'RemoveFlightFailure';
+}

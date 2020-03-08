@@ -20,6 +20,8 @@ class FlightsBloc extends Bloc<FlightsEvent, FlightsState> {
   Stream<FlightsState> mapEventToState(FlightsEvent event) async* {
     if (event is LoadAllFlights) {
       yield* _mapLoadAllFlightsToState();
+    } else if (event is RemoveFlight) {
+      yield* _mapRemoveFlightToState(event.flightId);
     }
   }
 
@@ -30,6 +32,16 @@ class FlightsBloc extends Bloc<FlightsEvent, FlightsState> {
       yield FlightsSuccess(allFlights);
     } catch (_) {
       yield FlightsFailure();
+    }
+  }
+
+  Stream<FlightsState> _mapRemoveFlightToState(String flightId) async* {
+    yield RemovingFlight(flightId);
+    try {
+      await _repository.removeFlight(flightId);
+      yield RemoveFlightSuccess(flightId);
+    } catch (_) {
+      yield RemoveFlightFailure(flightId);
     }
   }
 }
