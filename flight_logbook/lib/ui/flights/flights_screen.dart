@@ -27,9 +27,8 @@ class FlightListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final S s = S.of(context);
-
     final AuthenticationBloc authBloc = context.bloc();
+    final S s = S.of(context);
 
     return Scaffold(
       appBar: _appBar,
