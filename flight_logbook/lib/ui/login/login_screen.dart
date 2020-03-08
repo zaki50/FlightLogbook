@@ -13,51 +13,55 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final loginBloc = LoginBloc(repository: FirebaseLoginRepository());
-    final authBloc = BlocProvider.of<AuthenticationBloc>(context);
-
+    final AuthenticationBloc authBloc = context.bloc();
     final S s = S.of(context);
 
-    return Scaffold(
-      appBar: AppBar(title: Text(s.login)),
-      body: Container(
-        color: const Color(MOHICAN_BLUE),
-        child: BlocBuilder<LoginBloc, LoginState>(
-          bloc: loginBloc,
-          builder: (context, state) {
-            if (state is LoginLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (state is LoginSuccess) {
-              Future.delayed(const Duration(milliseconds: 100),
-                  () => authBloc.add(LoggedIn()));
-              return Container();
-            } else if (state is LoginFailure) {
-              return Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text(s.login_failure),
+    return BlocProvider(
+      create: (_) => LoginBloc(repository: FirebaseLoginRepository()),
+      child: Scaffold(
+        appBar: AppBar(title: Text(s.login)),
+        body: Container(
+          color: const Color(MOHICAN_BLUE),
+          child: Builder(
+            builder: (BuildContext context) =>
+                BlocBuilder<LoginBloc, LoginState>(
+              bloc: context.bloc(),
+              builder: (context, state) {
+                if (state is LoginLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is LoginSuccess) {
+                  Future.delayed(const Duration(milliseconds: 100),
+                      () => authBloc.add(LoggedIn()));
+                  return Container();
+                } else if (state is LoginFailure) {
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(s.login_failure),
+                        ),
+                        _buildLoginButton(context.bloc()),
+                      ],
                     ),
-                    _buildLoginButton(loginBloc),
-                  ],
-                ),
-              );
-            }
+                  );
+                }
 
-            // state == LoginInitial
-            return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  _buildLoginButton(loginBloc),
-                ],
-              ),
-            );
-          },
+                // state == LoginInitial
+                return Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      _buildLoginButton(context.bloc()),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
         ),
       ),
     );
