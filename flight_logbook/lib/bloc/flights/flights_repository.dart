@@ -46,12 +46,11 @@ class FirestoreFlightsRepository extends FlightsRepository {
       (QuerySnapshot snapshot) {
         return snapshot.documents
             .map(
-              (DocumentSnapshot entry) =>
-              FlightEntry(
+              (DocumentSnapshot entry) => FlightEntry(
                 id: entry.documentID,
                 data: entry.data,
               ),
-        )
+            )
             .toList();
       },
     );
@@ -77,11 +76,11 @@ class FirestoreFlightsRepository extends FlightsRepository {
     final currentUser = await _authRepository.getCurrentUser();
     await _firestore
         .document(
-      flightDocumentPathOf(
-        uid: currentUser.id,
-        flightId: flightId,
-      ),
-    )
+          flightDocumentPathOf(
+            uid: currentUser.id,
+            flightId: flightId,
+          ),
+        )
         .delete();
   }
 }
