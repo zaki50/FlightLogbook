@@ -14,7 +14,7 @@ class S implements WidgetsLocalizations {
   static S current;
 
   static const GeneratedLocalizationsDelegate delegate =
-    GeneratedLocalizationsDelegate();
+      GeneratedLocalizationsDelegate();
 
   static S of(BuildContext context) => Localizations.of<S>(context, S);
 
@@ -22,6 +22,10 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get actionLabel_add => "Add";
+  String get actionLabel_delete => "Delete";
+  String get confirm_delete_flight => "Delete this flight?";
+  String get confirm_logout => "Logout?";
+  String get dialog_title_confirmation => "Confirmation";
   String get flightFieldLabel_aircraftRegistration => "Aircraft Registration";
   String get flightFieldLabel_aircraftType => "Aircraft Type";
   String get flightFieldLabel_airline => "Airline";
@@ -47,6 +51,8 @@ class $ja extends S {
   @override
   String get flightFieldLabel_aircraftType => "機材";
   @override
+  String get confirm_logout => "ログアウトしますか？";
+  @override
   String get login => "ログイン";
   @override
   String get mandatory => "(必須)";
@@ -54,6 +60,8 @@ class $ja extends S {
   String get passwordLabel => "パスワード";
   @override
   String get login_failure => "ログインできませんでした。";
+  @override
+  String get actionLabel_delete => "削除";
   @override
   String get loginIdLabel => "メールアドレス";
   @override
@@ -73,7 +81,11 @@ class $ja extends S {
   @override
   String get actionLabel_add => "追加";
   @override
+  String get dialog_title_confirmation => "確認";
+  @override
   String get flightFieldLabel_departureAirport => "出発空港";
+  @override
+  String get confirm_delete_flight => "フライトを削除しますか？";
 }
 
 class $en extends S {
@@ -90,7 +102,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     ];
   }
 
-  LocaleListResolutionCallback listResolution({Locale fallback, bool withCountry = true}) {
+  LocaleListResolutionCallback listResolution(
+      {Locale fallback, bool withCountry = true}) {
     return (List<Locale> locales, Iterable<Locale> supported) {
       if (locales == null || locales.isEmpty) {
         return fallback ?? supported.first;
@@ -100,7 +113,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     };
   }
 
-  LocaleResolutionCallback resolution({Locale fallback, bool withCountry = true}) {
+  LocaleResolutionCallback resolution(
+      {Locale fallback, bool withCountry = true}) {
     return (Locale locale, Iterable<Locale> supported) {
       return _resolve(locale, fallback, supported, withCountry);
     };
@@ -118,7 +132,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
           S.current = const $en();
           return SynchronousFuture<S>(S.current);
         default:
-          // NO-OP.
+        // NO-OP.
       }
     }
     S.current = const S();
@@ -134,7 +148,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
   ///
   /// Internal method to resolve a locale from a list of locales.
   ///
-  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported, bool withCountry) {
+  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported,
+      bool withCountry) {
     if (locale == null || !_isSupported(locale, withCountry)) {
       return fallback ?? supported.first;
     }
@@ -167,7 +182,9 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
         }
 
         // If no country requirement is requested, check if this locale has no country.
-        if (true != withCountry && (supportedLocale.countryCode == null || supportedLocale.countryCode.isEmpty)) {
+        if (true != withCountry &&
+            (supportedLocale.countryCode == null ||
+                supportedLocale.countryCode.isEmpty)) {
           return true;
         }
       }
@@ -177,7 +194,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
 }
 
 String getLang(Locale l) => l == null
-  ? null
-  : l.countryCode != null && l.countryCode.isEmpty
-    ? l.languageCode
-    : l.toString();
+    ? null
+    : l.countryCode != null && l.countryCode.isEmpty
+        ? l.languageCode
+        : l.toString();

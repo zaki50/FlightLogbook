@@ -31,7 +31,12 @@
 
   "logout": "Logout",
 
+  "dialog_title_confirmation": "Confirmation",
+  "confirm_logout": "Logout?",
+  "confirm_delete_flight": "Delete this flight?",
+
   "actionLabel_add": "Add",
+  "actionLabel_delete": "Delete",
 
   "flightFieldLabel_departureDate": "Date",
   "flightFieldLabel_airline": "Airline",
