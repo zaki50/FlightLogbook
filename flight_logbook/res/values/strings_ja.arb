@@ -31,9 +31,13 @@
 
   "logout": "ログアウト",
 
+  "dialog_title_error": "エラー",
   "dialog_title_confirmation": "確認",
   "confirm_logout": "ログアウトしますか？",
   "confirm_delete_flight": "フライトを削除しますか？",
+
+  "error_failed_to_add_flight": "フライトの作成に失敗しました。",
+  "error_empty_field": "${label}を入力してください。",
 
   "actionLabel_add": "追加",
   "actionLabel_delete": "削除",

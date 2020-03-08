@@ -1,10 +1,14 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flightlogbook/bloc/add_flight/add_flight_bloc.dart';
+import 'package:flightlogbook/bloc/add_flight/add_flight_event.dart';
+import 'package:flightlogbook/bloc/add_flight/add_flight_state.dart';
+import 'package:flightlogbook/bloc/authentication/authentication_repository.dart';
 import 'package:flightlogbook/bloc/flights/flight_entry.dart';
+import 'package:flightlogbook/bloc/flights/flights_repository.dart';
 import 'package:flightlogbook/generated/i18n.dart';
 import 'package:flightlogbook/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class AddFlightScreen extends StatefulWidget {
@@ -33,14 +37,6 @@ class _FieldEntry {
 
 class _AddFlightScreenState extends State<AddFlightScreen> {
   List<_FieldEntry> _fields;
-
-  bool _isSaving;
-
-  @override
-  void initState() {
-    super.initState();
-    _isSaving = false;
-  }
 
   @override
   void didChangeDependencies() {
@@ -90,55 +86,99 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
   @override
   Widget build(BuildContext context) {
     final S s = S.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('フライトを追加'),
-        actions: <Widget>[
-          FlatButton(
-            child: Text(
-              s.actionLabel_add,
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () async {
-              if (_validateFields()) {
-                // TODO: ちゃんとBlocで実装する
-
-                final String uid =
-                    (await FirebaseAuth.instance.currentUser()).uid;
-                await Firestore.instance.collection("/users/$uid/flights").add(
-                      _fields.asMap().map<String, dynamic>(
-                            (_, _FieldEntry e) =>
-                                MapEntry(e.fieldName, e.editingController.text),
-                          )..putIfAbsent(FlightEntry.FIELD_UID, () => uid),
+    return BlocProvider(
+      create: (_) => AddFlightBloc(
+          repository: FirestoreFlightsRepository(
+              authRepository: FirebaseAuthenticationRepository())),
+      child: Builder(
+        builder: (BuildContext context) => Scaffold(
+          appBar: AppBar(
+            title: const Text('フライトを追加'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  s.actionLabel_add,
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () async {
+                  if (_validateFields(s)) {
+                    final AddFlightBloc bloc = context.bloc();
+                    bloc.add(
+                      AddFlight(
+                        FlightEntry.forNew(
+                          data: _fields.asMap().map<String, dynamic>(
+                                (_, _FieldEntry e) => MapEntry(
+                                    e.fieldName, e.editingController.text),
+                              ),
+                        ),
+                      ),
                     );
-                Navigator.pop(context);
-              }
-            },
+                  }
+                },
+              ),
+            ],
           ),
-        ],
-      ),
-      body: Form(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: _fields
-                .map(
-                  (e) => _buildTextField(e, s),
-                )
-                .toList(),
+          body: BlocBuilder<AddFlightBloc, AddFlightState>(
+            bloc: context.bloc(),
+            builder: (BuildContext context, AddFlightState state) {
+              if (state is AddFlightSuccess) {
+                // close this screen
+                Navigator.pop(context);
+                return Container();
+              }
+
+              // state is AddFlightInitial || state is AddFlightAdding || state is AddFlightFailure
+
+              if (state is AddFlightFailure) {
+                // このタイミングではダイアログをだせないので遅延実行する
+                Future.delayed(
+                  const Duration(milliseconds: 10),
+                  () => AwesomeDialog(
+                    context: context,
+                    animType: AnimType.TOPSLIDE,
+                    dialogType: DialogType.ERROR,
+                    tittle: s.dialog_title_error,
+                    desc: s.error_failed_to_add_flight,
+                    btnOkOnPress: () => null,
+                  ).show(),
+                );
+              }
+              return Stack(
+                children: [
+                  Form(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: _fields
+                            .map(
+                              (e) => _buildTextField(e, s),
+                            )
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                  if (state is AddFlightAdding)
+                    const AbsorbPointer(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                ],
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-  bool _validateFields() => _fields.fold(
+  bool _validateFields(S s) => _fields.fold(
         true,
         (stillValid, e) =>
             stillValid &&
             (!e.mandatory ||
-                _checkNotEmpty(context, e.editingController.text, e.label)),
+                _checkNotEmpty(context, s, e.editingController.text, e.label)),
       );
 
   static Widget _buildTextField(_FieldEntry entry, S s) {
@@ -156,16 +196,17 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
     );
   }
 
-  static bool _checkNotEmpty(BuildContext context, String value, String label) {
+  static bool _checkNotEmpty(
+      BuildContext context, S s, String value, String label) {
     if (value.isNotEmpty) {
       return true;
     }
     AwesomeDialog(
       context: context,
       animType: AnimType.TOPSLIDE,
-      dialogType: DialogType.WARNING,
-      tittle: 'エラー',
-      desc: "${label}が空です。",
+      dialogType: DialogType.ERROR,
+      tittle: s.dialog_title_error,
+      desc: s.error_empty_field(label),
       btnOkOnPress: () => null,
     ).show();
     return false;

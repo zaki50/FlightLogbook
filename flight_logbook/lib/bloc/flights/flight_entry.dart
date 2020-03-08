@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
@@ -39,6 +41,34 @@ class FlightEntry extends Equatable {
   })  : assert(id != null && id.isNotEmpty),
         assert(data != null);
 
+  factory FlightEntry.forNew({
+    @required Map<String, dynamic> data,
+  }) {
+    return FlightEntry(id: _generateRandomId(), data: data);
+  }
+
   @override
   List<Object> get props => [id]; // idが等しければデータの中身までは見ない
+
+  static String _generateRandomId() {
+    const randomChars =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charsLength = randomChars.length;
+    const prefix = 'forNew:';
+    const prefixLength = prefix.length;
+    const int idLength = prefixLength + 20;
+
+    final rand = new Random();
+    final codeUnits = new List.generate(
+      idLength,
+      (index) {
+        if (index < prefixLength) {
+          return prefix.codeUnitAt(index);
+        }
+        final n = rand.nextInt(charsLength);
+        return randomChars.codeUnitAt(n);
+      },
+    );
+    return String.fromCharCodes(codeUnits);
+  }
 }
