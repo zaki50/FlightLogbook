@@ -10,14 +10,18 @@ abstract class FlightsEvent extends Equatable {
 }
 
 class LoadAllFlights extends FlightsEvent {
+  final int year;
+  LoadAllFlights(this.year) : super([year]);
+
   @override
   String toString() => 'LoadAllFlights';
 }
 
 class RemoveFlight extends FlightsEvent {
+  final int year;
   final String flightId;
 
-  RemoveFlight(this.flightId) : super([flightId]);
+  RemoveFlight(this.year, this.flightId) : super([year, flightId]);
   @override
   String toString() => 'RemoveFlight';
 }

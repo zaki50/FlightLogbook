@@ -19,29 +19,30 @@ class FlightsBloc extends Bloc<FlightsEvent, FlightsState> {
   @override
   Stream<FlightsState> mapEventToState(FlightsEvent event) async* {
     if (event is LoadAllFlights) {
-      yield* _mapLoadAllFlightsToState();
+      yield* _mapLoadAllFlightsToState(event);
     } else if (event is RemoveFlight) {
-      yield* _mapRemoveFlightToState(event.flightId);
+      yield* _mapRemoveFlightToState(event);
     }
   }
 
-  Stream<FlightsState> _mapLoadAllFlightsToState() async* {
-    yield FlightsLoading();
+  Stream<FlightsState> _mapLoadAllFlightsToState(LoadAllFlights event) async* {
+    yield FlightsLoading(event.year);
     try {
-      final List<FlightEntry> allFlights = await _repository.getAllFlights();
-      yield FlightsSuccess(allFlights);
+      final List<FlightEntry> allFlights =
+          await _repository.getAllFlights(event.year);
+      yield FlightsSuccess(event.year, allFlights);
     } catch (_) {
-      yield FlightsFailure();
+      yield FlightsFailure(event.year);
     }
   }
 
-  Stream<FlightsState> _mapRemoveFlightToState(String flightId) async* {
-    yield RemovingFlight(flightId);
+  Stream<FlightsState> _mapRemoveFlightToState(RemoveFlight event) async* {
+    yield RemovingFlight(event.year, event.flightId);
     try {
-      await _repository.removeFlight(flightId);
-      yield RemoveFlightSuccess(flightId);
+      await _repository.removeFlight(event.year, event.flightId);
+      yield RemoveFlightSuccess(event.year, event.flightId);
     } catch (_) {
-      yield RemoveFlightFailure(flightId);
+      yield RemoveFlightFailure(event.year, event.flightId);
     }
   }
 }

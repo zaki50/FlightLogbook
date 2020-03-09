@@ -11,9 +11,10 @@ abstract class AddFlightEvent extends Equatable {
 }
 
 class AddFlight extends AddFlightEvent {
+  final int year;
   final FlightEntry entry;
 
-  AddFlight(this.entry) : super([entry]);
+  AddFlight(this.year, this.entry) : super([year, entry]);
 
   @override
   String toString() => 'AddFlight';

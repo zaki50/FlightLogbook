@@ -10,6 +10,7 @@ import 'package:flightlogbook/bloc/flights/flights_state.dart';
 import 'package:flightlogbook/generated/i18n.dart';
 import 'package:flightlogbook/main.dart';
 import 'package:flightlogbook/pages.dart';
+import 'package:flightlogbook/ui/add_flight/add_flight_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +30,9 @@ class FlightListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final AuthenticationBloc authBloc = context.bloc();
     final S s = S.of(context);
+
+    // TODO: 暫定的にその時点での西暦を対象年度としているので、ユーザーが選べるようにする。
+    final int year = DateTime.now().year;
 
     return Scaffold(
       appBar: _appBar,
@@ -59,7 +63,7 @@ class FlightListScreen extends StatelessWidget {
             !(current is RemovingFlight || current is RemoveFlightSuccess),
         builder: (context, state) {
           if (state is FlightsInitial) {
-            _flightsBloc.add(LoadAllFlights());
+            _flightsBloc.add(LoadAllFlights(year));
             return Container();
           } else if (state is FlightsLoading) {
             return const Center(
@@ -68,6 +72,7 @@ class FlightListScreen extends StatelessWidget {
           } else if (state is FlightsSuccess) {
             return _buildFlightList(
               s,
+              year,
               state.flights,
             );
           } else if (state is FlightsFailure) {
@@ -76,7 +81,7 @@ class FlightListScreen extends StatelessWidget {
             );
           } else if (state is RemoveFlightFailure) {
             Future.delayed(const Duration(seconds: 2),
-                () => _flightsBloc.add(LoadAllFlights()));
+                () => _flightsBloc.add(LoadAllFlights(year)));
             return const Center(
               child: Text('データの削除に失敗しました。'),
             );
@@ -86,7 +91,8 @@ class FlightListScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, Pages.ADD_FLIGHT),
+        onPressed: () => Navigator.pushNamed(context, Pages.ADD_FLIGHT,
+            arguments: AddFlightArguments(year)),
         tooltip: 'Add',
         child: Icon(Icons.add),
         backgroundColor: const Color(MOHICAN_BLUE),
@@ -94,7 +100,7 @@ class FlightListScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildFlightList(S s, List<FlightEntry> flights) {
+  Widget _buildFlightList(S s, int year, List<FlightEntry> flights) {
     //要素を削除する場合があるのでコピー
     flights = List.from(flights);
     final double rowHeight = 48.0;
@@ -118,6 +124,7 @@ class FlightListScreen extends StatelessWidget {
             listKey,
             controller,
             animation,
+            year,
             rowHeight,
             flights,
             item,
@@ -125,7 +132,7 @@ class FlightListScreen extends StatelessWidget {
         },
       ),
       onRefresh: () {
-        _flightsBloc.add(LoadAllFlights());
+        _flightsBloc.add(LoadAllFlights(year));
         return Future.value();
       },
     );
@@ -137,6 +144,7 @@ class FlightListScreen extends StatelessWidget {
     GlobalKey<AnimatedListState> listKey,
     SlidableController controller,
     Animation animation,
+    int year,
     double rowHeight,
     List<FlightEntry> flights,
     FlightEntry item,
@@ -171,13 +179,14 @@ class FlightListScreen extends StatelessWidget {
                         listKey,
                         controller,
                         animation,
+                        year,
                         rowHeight,
                         flights,
                         removing,
                       );
                     };
                     listKey.currentState.removeItem(removingIndex, builder);
-                    _flightsBloc.add(RemoveFlight(removing.id));
+                    _flightsBloc.add(RemoveFlight(year, removing.id));
                   },
                   btnCancelOnPress: () => null,
                 ).show();

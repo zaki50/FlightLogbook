@@ -18,47 +18,58 @@ class FlightsInitial extends FlightsState {
 }
 
 class FlightsLoading extends FlightsState {
-  FlightsLoading();
+  final int year;
+
+  FlightsLoading(this.year) : super([year]);
 
   @override
   String toString() => 'FlightsLoading';
 }
 
 class FlightsSuccess extends FlightsState {
+  final int year;
   final List<FlightEntry> flights;
 
-  FlightsSuccess(this.flights) : super([flights]);
+  FlightsSuccess(this.year, this.flights) : super([year, flights]);
 
   @override
   String toString() => 'FlightsSuccess';
 }
 
 class FlightsFailure extends FlightsState {
-  FlightsFailure();
+  final int year;
+
+  FlightsFailure(this.year) : super([year]);
 
   @override
   String toString() => 'FlightsFailure';
 }
 
 class RemovingFlight extends FlightsState {
+  final int year;
   final String flightId;
-  RemovingFlight(this.flightId) : super([flightId]);
+
+  RemovingFlight(this.year, this.flightId) : super([year, flightId]);
 
   @override
   String toString() => 'RemovingFlight';
 }
 
 class RemoveFlightSuccess extends FlightsState {
+  final int year;
   final String flightId;
-  RemoveFlightSuccess(this.flightId) : super([flightId]);
+
+  RemoveFlightSuccess(this.year, this.flightId) : super([year, flightId]);
 
   @override
   String toString() => 'RemoveFlightSuccess';
 }
 
 class RemoveFlightFailure extends FlightsState {
+  final int year;
   final String flightId;
-  RemoveFlightFailure(this.flightId) : super([flightId]);
+
+  RemoveFlightFailure(this.year, this.flightId) : super([year, flightId]);
 
   @override
   String toString() => 'RemoveFlightFailure';

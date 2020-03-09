@@ -11,6 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+class AddFlightArguments {
+  final int year;
+  AddFlightArguments(this.year);
+}
+
 class AddFlightScreen extends StatefulWidget {
   @override
   _AddFlightScreenState createState() => _AddFlightScreenState();
@@ -47,7 +52,7 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
       _FieldEntry(
         fieldName: FlightEntry.FIELD_DEPARTURE_DATE,
         label: s.flightFieldLabel_departureDate,
-        valueExample: "例: ${DateFormat('yyyy/MM/dd').format(DateTime.now())}",
+        valueExample: "例: ${DateFormat('MM/dd').format(DateTime.now())}",
         mandatory: true,
       ),
       _FieldEntry(
@@ -86,6 +91,8 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
   @override
   Widget build(BuildContext context) {
     final S s = S.of(context);
+    final AddFlightArguments args = ModalRoute.of(context).settings.arguments;
+
     return BlocProvider(
       create: (_) => AddFlightBloc(
           repository: FirestoreFlightsRepository(
@@ -93,7 +100,7 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
       child: Builder(
         builder: (BuildContext context) => Scaffold(
           appBar: AppBar(
-            title: const Text('フライトを追加'),
+            title: Text("フライトを追加(${args.year}年度)"),
             actions: <Widget>[
               FlatButton(
                 child: Text(
@@ -105,6 +112,7 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
                     final AddFlightBloc bloc = context.bloc();
                     bloc.add(
                       AddFlight(
+                        args.year,
                         FlightEntry.forNew(
                           data: _fields.asMap().map<String, dynamic>(
                                 (_, _FieldEntry e) => MapEntry(
