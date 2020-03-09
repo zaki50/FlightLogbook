@@ -39,15 +39,17 @@ void testFor_equals() {
   test('test of FlightsSuccess !=', () {
     expect(
       FlightsSuccess(2019, const []),
-      equals(FlightsSuccess(2020, const [])),
+      isNot(equals(FlightsSuccess(2020, const []))),
     );
     expect(
       FlightsSuccess(2020, [FlightEntry(id: 'a', data: const {})]),
-      equals(FlightsSuccess(2020, [FlightEntry(id: 'b', data: const {})])),
+      isNot(
+          equals(FlightsSuccess(2020, [FlightEntry(id: 'b', data: const {})]))),
     );
     expect(
       FlightsSuccess(2019, [FlightEntry(id: 'a', data: const {})]),
-      equals(FlightsSuccess(2020, [FlightEntry(id: 'a', data: const {})])),
+      isNot(
+          equals(FlightsSuccess(2020, [FlightEntry(id: 'a', data: const {})]))),
     );
   });
 
@@ -61,7 +63,7 @@ void testFor_equals() {
   test('test of FlightsFailure !=', () {
     expect(
       FlightsFailure(2019),
-      equals(FlightsFailure(2020)),
+      isNot(equals(FlightsFailure(2020))),
     );
   });
 
@@ -75,15 +77,15 @@ void testFor_equals() {
   test('test of RemovingFlight !=', () {
     expect(
       RemovingFlight(2019, 'a'),
-      equals(RemovingFlight(2020, 'a')),
+      isNot(equals(RemovingFlight(2020, 'a'))),
     );
     expect(
       RemovingFlight(2020, 'a'),
-      equals(RemovingFlight(2020, 'b')),
+      isNot(equals(RemovingFlight(2020, 'b'))),
     );
     expect(
       RemovingFlight(2019, 'a'),
-      equals(RemovingFlight(2020, 'b')),
+      isNot(equals(RemovingFlight(2020, 'b'))),
     );
   });
 
@@ -97,15 +99,15 @@ void testFor_equals() {
   test('test of RemoveFlightSuccess !=', () {
     expect(
       RemoveFlightSuccess(2019, 'a'),
-      equals(RemoveFlightSuccess(2020, 'a')),
+      isNot(equals(RemoveFlightSuccess(2020, 'a'))),
     );
     expect(
       RemoveFlightSuccess(2020, 'a'),
-      equals(RemoveFlightSuccess(2020, 'b')),
+      isNot(equals(RemoveFlightSuccess(2020, 'b'))),
     );
     expect(
       RemoveFlightSuccess(2019, 'a'),
-      equals(RemoveFlightSuccess(2020, 'b')),
+      isNot(equals(RemoveFlightSuccess(2020, 'b'))),
     );
   });
 
@@ -119,15 +121,15 @@ void testFor_equals() {
   test('test of RemoveFlightFailure !=', () {
     expect(
       RemoveFlightFailure(2019, 'a'),
-      equals(RemoveFlightFailure(2020, 'a')),
+      isNot(equals(RemoveFlightFailure(2020, 'a'))),
     );
     expect(
       RemoveFlightFailure(2020, 'a'),
-      equals(RemoveFlightFailure(2020, 'b')),
+      isNot(equals(RemoveFlightFailure(2020, 'b'))),
     );
     expect(
       RemoveFlightFailure(2019, 'a'),
-      equals(RemoveFlightFailure(2020, 'b')),
+      isNot(equals(RemoveFlightFailure(2020, 'b'))),
     );
   });
 
@@ -250,10 +252,6 @@ void testFor_equals() {
     );
     expect(
       RemovingFlight(2020, 'a'),
-      isNot(equals(RemovingFlight(2020, 'a'))),
-    );
-    expect(
-      RemovingFlight(2020, 'a'),
       isNot(equals(RemoveFlightSuccess(2020, 'a'))),
     );
     expect(
@@ -309,10 +307,6 @@ void testFor_equals() {
     expect(
       RemoveFlightFailure(2020, 'a'),
       isNot(equals(RemoveFlightSuccess(2020, 'a'))),
-    );
-    expect(
-      RemoveFlightFailure(2020, 'a'),
-      isNot(equals(RemoveFlightFailure(2020, 'a'))),
     );
   });
 }
