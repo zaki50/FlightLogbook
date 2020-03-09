@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flightlogbook/bloc/authentication/current_user.dart';
+import 'package:flightlogbook/repository/authentication/current_user.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 abstract class AuthenticationRepository {

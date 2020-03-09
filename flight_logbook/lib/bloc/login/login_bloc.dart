@@ -1,6 +1,6 @@
 import 'package:flightlogbook/bloc/login/login_event.dart';
-import 'package:flightlogbook/bloc/login/login_repository.dart';
 import 'package:flightlogbook/bloc/login/login_state.dart';
+import 'package:flightlogbook/repository/login/login_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

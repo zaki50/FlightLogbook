@@ -1,7 +1,7 @@
-import 'package:flightlogbook/bloc/flights/flight_entry.dart';
 import 'package:flightlogbook/bloc/flights/flights_event.dart';
-import 'package:flightlogbook/bloc/flights/flights_repository.dart';
 import 'package:flightlogbook/bloc/flights/flights_state.dart';
+import 'package:flightlogbook/repository/flights/flight_entry.dart';
+import 'package:flightlogbook/repository/flights/flights_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

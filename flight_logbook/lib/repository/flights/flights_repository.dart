@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flightlogbook/bloc/authentication/authentication_repository.dart';
-import 'package:flightlogbook/bloc/flights/flight_entry.dart';
+import 'package:flightlogbook/repository/authentication/authentication_repository.dart';
+import 'package:flightlogbook/repository/flights/flight_entry.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class FlightsRepository {

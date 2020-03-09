@@ -1,4 +1,4 @@
-import 'package:flightlogbook/bloc/flights/flight_entry.dart';
+import 'package:flightlogbook/repository/flights/flight_entry.dart';
 import 'package:test/test.dart';
 
 void main() {
