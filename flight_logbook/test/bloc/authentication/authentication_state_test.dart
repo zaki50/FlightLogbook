@@ -1,5 +1,5 @@
 import 'package:flightlogbook/bloc/authentication/authentication_state.dart';
-import 'package:flightlogbook/bloc/authentication/current_user.dart';
+import 'package:flightlogbook/repository/authentication/current_user.dart';
 import 'package:test/test.dart';
 
 void main() {
