@@ -47,7 +47,10 @@ class AuthenticationBloc
   }
 
   Stream<AuthenticationState> _mapLoggedOutToState() async* {
-    yield AuthenticationFailure();
-    _repository.logout();
+    try {
+      _repository.logout();
+    } finally {
+      yield AuthenticationFailure();
+    }
   }
 }
