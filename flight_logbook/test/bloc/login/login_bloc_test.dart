@@ -16,6 +16,10 @@ void testFor_login_success() {
     final LoginRepository mockLoginRepository = MockLoginRepository();
     final bloc = LoginBloc(repository: mockLoginRepository);
     expectLater(bloc, emitsInOrder([LoginInitial()]));
+    expectLater(bloc, neverEmits(LoginLoading()));
+    expectLater(bloc, neverEmits(LoginSuccess()));
+    expectLater(bloc, neverEmits(LoginFailure()));
+    bloc.close();
   });
 
   test('test Google login success', () {
@@ -24,17 +28,17 @@ void testFor_login_success() {
       return;
     });
     final bloc = LoginBloc(repository: mockLoginRepository);
-    bloc.add(LoginWithGoogleOnPressed());
     expectLater(
         bloc, emitsInOrder([LoginInitial(), LoginLoading(), LoginSuccess()]));
+    bloc.add(LoginWithGoogleOnPressed());
   });
 
   test('test Google login failure', () {
     final LoginRepository mockLoginRepository = MockLoginRepository();
     when(mockLoginRepository.loginWithGoogle()).thenThrow(Exception());
     final bloc = LoginBloc(repository: mockLoginRepository);
-    bloc.add(LoginWithGoogleOnPressed());
     expectLater(
         bloc, emitsInOrder([LoginInitial(), LoginLoading(), LoginFailure()]));
+    bloc.add(LoginWithGoogleOnPressed());
   });
 }
