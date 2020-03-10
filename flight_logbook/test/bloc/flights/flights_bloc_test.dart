@@ -60,14 +60,6 @@ void testFor_FlightsBloc() {
     bloc.add(LoadAllFlights(2020));
   });
 
-  //  FlightsInitial
-//  FlightsLoading
-//  FlightsSuccess
-//  FlightsFailure
-//  RemovingFlight
-//  RemoveFlightSuccess
-//  RemoveFlightFailure
-
   test('test remove flight success', () {
     final FlightsRepository mockFlightsRepository = MockFlightsRepository();
     when(mockFlightsRepository.removeFlight(2020, 'a')).thenAnswer((_) {
