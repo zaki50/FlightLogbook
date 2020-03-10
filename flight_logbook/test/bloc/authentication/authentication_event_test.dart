@@ -2,11 +2,6 @@ import 'package:flightlogbook/bloc/authentication/authentication_event.dart';
 import 'package:test/test.dart';
 
 void main() {
-  testFor_equals();
-}
-
-// ignore: non_constant_identifier_names
-void testFor_equals() {
   test('test of == for AppStarted', () {
     expect(AppStarted(), equals(AppStarted()));
   });

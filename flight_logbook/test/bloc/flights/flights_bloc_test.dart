@@ -6,15 +6,11 @@ import 'package:flightlogbook/repository/flights/flights_repository.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+class _MockFlightsRepository extends Mock implements FlightsRepository {}
+
 void main() {
-  testFor_FlightsBloc();
-}
-
-class MockFlightsRepository extends Mock implements FlightsRepository {}
-
-void testFor_FlightsBloc() {
   test('test initial state', () {
-    final FlightsRepository mockFlightsRepository = MockFlightsRepository();
+    final FlightsRepository mockFlightsRepository = _MockFlightsRepository();
     final bloc = FlightsBloc(repository: mockFlightsRepository);
     expectLater(bloc, emitsInOrder([FlightsInitial()]));
     expectLater(bloc, neverEmits(FlightsLoading(2020)));
@@ -27,7 +23,7 @@ void testFor_FlightsBloc() {
   });
 
   test('test loading flights success', () {
-    final FlightsRepository mockFlightsRepository = MockFlightsRepository();
+    final FlightsRepository mockFlightsRepository = _MockFlightsRepository();
     when(mockFlightsRepository.getAllFlights(2020)).thenAnswer((_) {
       return Future.value([
         FlightEntry(id: 'a', data: const {'aa': 'bb'})
@@ -47,7 +43,7 @@ void testFor_FlightsBloc() {
   });
 
   test('test loading flights failure', () {
-    final FlightsRepository mockFlightsRepository = MockFlightsRepository();
+    final FlightsRepository mockFlightsRepository = _MockFlightsRepository();
     when(mockFlightsRepository.getAllFlights(2020)).thenThrow(Exception());
     final bloc = FlightsBloc(repository: mockFlightsRepository);
     expectLater(
@@ -61,7 +57,7 @@ void testFor_FlightsBloc() {
   });
 
   test('test remove flight success', () {
-    final FlightsRepository mockFlightsRepository = MockFlightsRepository();
+    final FlightsRepository mockFlightsRepository = _MockFlightsRepository();
     when(mockFlightsRepository.removeFlight(2020, 'a')).thenAnswer((_) {
       return;
     });
@@ -77,7 +73,7 @@ void testFor_FlightsBloc() {
   });
 
   test('test remove flight failure', () {
-    final FlightsRepository mockFlightsRepository = MockFlightsRepository();
+    final FlightsRepository mockFlightsRepository = _MockFlightsRepository();
     when(mockFlightsRepository.removeFlight(2020, 'a')).thenThrow(Exception());
     final bloc = FlightsBloc(repository: mockFlightsRepository);
     expectLater(

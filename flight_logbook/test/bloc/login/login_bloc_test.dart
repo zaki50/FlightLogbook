@@ -5,15 +5,11 @@ import 'package:flightlogbook/repository/login/login_repository.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
+class _MockLoginRepository extends Mock implements LoginRepository {}
+
 void main() {
-  testFor_login_success();
-}
-
-class MockLoginRepository extends Mock implements LoginRepository {}
-
-void testFor_login_success() {
   test('test initial state', () {
-    final LoginRepository mockLoginRepository = MockLoginRepository();
+    final LoginRepository mockLoginRepository = _MockLoginRepository();
     final bloc = LoginBloc(repository: mockLoginRepository);
     expectLater(bloc, emitsInOrder([LoginInitial()]));
     expectLater(bloc, neverEmits(LoginLoading()));
@@ -23,7 +19,7 @@ void testFor_login_success() {
   });
 
   test('test Google login success', () {
-    final LoginRepository mockLoginRepository = MockLoginRepository();
+    final LoginRepository mockLoginRepository = _MockLoginRepository();
     when(mockLoginRepository.loginWithGoogle()).thenAnswer((_) {
       return;
     });
@@ -34,7 +30,7 @@ void testFor_login_success() {
   });
 
   test('test Google login failure', () {
-    final LoginRepository mockLoginRepository = MockLoginRepository();
+    final LoginRepository mockLoginRepository = _MockLoginRepository();
     when(mockLoginRepository.loginWithGoogle()).thenThrow(Exception());
     final bloc = LoginBloc(repository: mockLoginRepository);
     expectLater(

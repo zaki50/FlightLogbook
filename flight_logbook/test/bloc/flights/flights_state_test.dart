@@ -3,11 +3,6 @@ import 'package:flightlogbook/repository/flights/flight_entry.dart';
 import 'package:test/test.dart';
 
 void main() {
-  testFor_equals();
-}
-
-// ignore: non_constant_identifier_names
-void testFor_equals() {
   test('test of FlightsInitial ==', () {
     expect(
       FlightsInitial(),

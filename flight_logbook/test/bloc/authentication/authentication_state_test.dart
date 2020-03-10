@@ -3,11 +3,6 @@ import 'package:flightlogbook/repository/authentication/current_user.dart';
 import 'package:test/test.dart';
 
 void main() {
-  testFor_equals();
-}
-
-// ignore: non_constant_identifier_names
-void testFor_equals() {
   test('test of AuthenticationInProgress ==', () {
     expect(AuthenticationInProgress(), equals(AuthenticationInProgress()));
   });

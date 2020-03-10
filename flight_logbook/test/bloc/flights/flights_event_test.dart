@@ -2,10 +2,6 @@ import 'package:flightlogbook/bloc/flights/flights_event.dart';
 import 'package:test/test.dart';
 
 void main() {
-  testFor_equals();
-}
-
-void testFor_equals() {
   test('test of == for LoadAllFlights', () {
     expect(LoadAllFlights(2020), equals(LoadAllFlights(2020)));
   });
