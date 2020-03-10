@@ -18,20 +18,30 @@ class AddFlightInitial extends AddFlightState {
 }
 
 class AddFlightAdding extends AddFlightState {
+  final int year;
+  final FlightEntry entry;
+
+  AddFlightAdding(this.year, this.entry) : super([year, entry]);
+
   @override
   String toString() => 'AddFlightAdding';
 }
 
 class AddFlightSuccess extends AddFlightState {
+  final int year;
   final FlightEntry entry;
-  AddFlightSuccess(this.entry) : super([entry]);
+
+  AddFlightSuccess(this.year, this.entry) : super([year, entry]);
 
   @override
   String toString() => 'AddFlightSuccess';
 }
 
 class AddFlightFailure extends AddFlightState {
-  AddFlightFailure();
+  final int year;
+  final FlightEntry entry;
+
+  AddFlightFailure(this.year, this.entry) : super([year, entry]);
 
   @override
   String toString() => 'AddFlightFailure';

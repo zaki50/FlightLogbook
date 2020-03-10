@@ -23,14 +23,14 @@ class AddFlightBloc extends Bloc<AddFlightEvent, AddFlightState> {
   }
 
   Stream<AddFlightState> _mapAddFlightToState(AddFlight event) async* {
-    yield AddFlightAdding();
+    yield AddFlightAdding(event.year, event.entry);
     try {
       final addedEntry = await _repository.addFlight(event.year, event.entry);
-      yield AddFlightSuccess(addedEntry);
+      yield AddFlightSuccess(event.year, addedEntry);
     } catch (e) {
       debugPrint(e.toString());
 
-      yield AddFlightFailure();
+      yield AddFlightFailure(event.year, event.entry);
     }
   }
 }
