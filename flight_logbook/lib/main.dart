@@ -85,7 +85,9 @@ class MyApp extends StatelessWidget {
     return BlocBuilder<SettingsBloc, SettingsState>(
       bloc: BlocProvider.of(context),
       condition: (previous, current) =>
-          current is LoadSettingsSuccess || current is UpdateSettingSuccess,
+          current is LoadSettingsSuccess ||
+          (current is UpdateSettingSuccess &&
+              current.key == SettingsRepository.DEFAULT_VALUE_COLOR_SCHEME),
       builder: (BuildContext context, SettingsState state) {
         int colorScheme = SettingsRepository.DEFAULT_VALUE_COLOR_SCHEME;
         if (state is LoadSettingsSuccess) {
