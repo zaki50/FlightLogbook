@@ -61,6 +61,9 @@ dependencies:
   # https://pub.dev/packages/shared_preferences
   shared_preferences: ^0.5.6+3
 
+  # https://pub.dev/packages/prefs_config
+  prefs_config: ^0.8.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

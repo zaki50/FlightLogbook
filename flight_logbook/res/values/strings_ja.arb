@@ -50,5 +50,11 @@
   "flightFieldLabel_aircraftType": "機材",
   "flightFieldLabel_aircraftRegistration": "機体記号",
 
-  "mandatory": "(必須)"
+  "mandatory": "(必須)",
+
+  "settings": "設定",
+
+  "settingLabel_colorScheme": "カラースキーム",
+  "settingValue_colorScheme_ana": "ANA",
+  "settingValue_colorScheme_jal": "JAL",
 }

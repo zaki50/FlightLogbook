@@ -4,8 +4,9 @@ import 'package:flightlogbook/bloc/authentication/authentication_event.dart';
 import 'package:flightlogbook/bloc/flights/flights_bloc.dart';
 import 'package:flightlogbook/bloc/flights/flights_event.dart';
 import 'package:flightlogbook/bloc/flights/flights_state.dart';
+import 'package:flightlogbook/bloc/settings/settings_bloc.dart';
+import 'package:flightlogbook/bloc/settings/settings_event.dart';
 import 'package:flightlogbook/generated/i18n.dart';
-import 'package:flightlogbook/main.dart';
 import 'package:flightlogbook/pages.dart';
 import 'package:flightlogbook/repository/authentication/authentication_repository.dart';
 import 'package:flightlogbook/repository/flights/flight_entry.dart';
@@ -39,6 +40,15 @@ class FlightListScreen extends StatelessWidget {
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
+            ListTile(
+              title: Text(s.settings),
+              leading: Icon(Icons.settings),
+              onTap: () async {
+                await Navigator.pushNamed(context, Pages.SETTINGS);
+                // アプリの最上位のリスナーに設定が変更されたことを伝える
+                BlocProvider.of<SettingsBloc>(context).add(LoadAllSettings());
+              },
+            ),
             ListTile(
               title: Text(s.logout),
               leading: Icon(FontAwesomeIcons.signOutAlt),
@@ -95,7 +105,6 @@ class FlightListScreen extends StatelessWidget {
             arguments: AddFlightArguments(year)),
         tooltip: 'Add',
         child: Icon(Icons.add),
-        backgroundColor: const Color(MOHICAN_BLUE),
       ),
     );
   }

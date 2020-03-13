@@ -50,5 +50,11 @@
   "flightFieldLabel_aircraftType": "Aircraft Type",
   "flightFieldLabel_aircraftRegistration": "Aircraft Registration",
 
-  "mandatory": "(mandatory)"
+  "mandatory": "(mandatory)",
+
+  "settings": "Settings",
+
+  "settingLabel_colorScheme": "Color scheme",
+  "settingValue_colorScheme_ana": "ANA",
+  "settingValue_colorScheme_jal": "JAL",
 }

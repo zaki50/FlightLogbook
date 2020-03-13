@@ -4,7 +4,6 @@ import 'package:flightlogbook/bloc/login/login_bloc.dart';
 import 'package:flightlogbook/bloc/login/login_event.dart';
 import 'package:flightlogbook/bloc/login/login_state.dart';
 import 'package:flightlogbook/generated/i18n.dart';
-import 'package:flightlogbook/main.dart';
 import 'package:flightlogbook/repository/login/login_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +20,6 @@ class LoginScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(title: Text(s.login)),
         body: Container(
-          color: const Color(MOHICAN_BLUE),
           child: Builder(
             builder: (BuildContext context) =>
                 BlocBuilder<LoginBloc, LoginState>(
@@ -44,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(16.0),
                           child: Text(s.login_failure),
                         ),
-                        _buildLoginButton(context.bloc()),
+                        _buildLoginButton(context),
                       ],
                     ),
                   );
@@ -55,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      _buildLoginButton(context.bloc()),
+                      _buildLoginButton(context),
                     ],
                   ),
                 );
@@ -67,7 +65,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  RaisedButton _buildLoginButton(LoginBloc loginBloc) => RaisedButton.icon(
+  RaisedButton _buildLoginButton(BuildContext context) => RaisedButton.icon(
         icon: Icon(
           FontAwesomeIcons.google,
           color: Colors.white,
@@ -76,7 +74,8 @@ class LoginScreen extends StatelessWidget {
           'Login with google',
           style: TextStyle(color: Colors.white),
         ),
-        color: const Color(TRITON_BLUE),
-        onPressed: () => loginBloc.add(LoginWithGoogleOnPressed()),
+        color: Theme.of(context).accentColor,
+        onPressed: () =>
+            context.bloc<LoginBloc>().add(LoginWithGoogleOnPressed()),
       );
 }
