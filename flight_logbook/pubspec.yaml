@@ -39,18 +39,16 @@ dependencies:
   flutter_bloc: ^3.2.0
 
   # https://pub.dev/packages/cloud_firestore
-  cloud_firestore: ^0.13.4+1
+  cloud_firestore: ^0.13.4+2
 
   # https://pub.dev/packages/firebase_auth
-  # DO NOT ADD ^ since it causes "UserAgent.h not found error on ios build" (as of 0.15.5+2)
-  firebase_auth: 0.15.4
+  firebase_auth: 0.15.5+3
 
   # https://pub.dev/packages/google_sign_in
-  google_sign_in: ^4.1.4
+  google_sign_in: ^4.2.0
 
   # https://pub.dev/packages/firebase_core
-  # DO NOT ADD ^ since it causes "UserAgent.h not found error on ios build" (as of 0.4.4+2)
-  firebase_core: 0.4.4
+  firebase_core: 0.4.4+3
 
   # https://pub.dev/packages/awesome_dialog
   awesome_dialog: ^0.1.3
