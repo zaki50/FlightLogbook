@@ -14,7 +14,7 @@ class S implements WidgetsLocalizations {
   static S current;
 
   static const GeneratedLocalizationsDelegate delegate =
-      GeneratedLocalizationsDelegate();
+    GeneratedLocalizationsDelegate();
 
   static S of(BuildContext context) => Localizations.of<S>(context, S);
 
@@ -28,13 +28,30 @@ class S implements WidgetsLocalizations {
   String get dialog_title_confirmation => "Confirmation";
   String get dialog_title_error => "Error";
   String get error_failed_to_add_flight => "Failed to add flight.";
-  String get flightFieldLabel_aircraftRegistration => "Aircraft Registration";
-  String get flightFieldLabel_aircraftType => "Aircraft Type";
-  String get flightFieldLabel_airline => "Airline";
-  String get flightFieldLabel_arrivalAirport => "Arrival Airport";
-  String get flightFieldLabel_departureAirport => "Departure Airport";
-  String get flightFieldLabel_departureDate => "Date";
-  String get flightFieldLabel_flightNumber => "Flight Number";
+  String get fieldName_AIRCRAFT_REGISTRATION => "Aircraft registration";
+  String get fieldName_AIRCRAFT_TYPE => "Aircraft type";
+  String get fieldName_AIRLINE => "Airline";
+  String get fieldName_ARRIVAL_AIRPORT => "Arrival airport";
+  String get fieldName_ARRIVAL_GATE => "Arrival gate";
+  String get fieldName_ARRIVAL_TIME => "Actual arrival time";
+  String get fieldName_ARRIVAL_TIMEZONE_ => "Arrival timezone";
+  String get fieldName_ARRIVAL_WEATHER => "Arrival weather";
+  String get fieldName_DEPARTURE_AIRPORT => "Dep. airport";
+  String get fieldName_DEPARTURE_DATE => "Dep. date";
+  String get fieldName_DEPARTURE_GATE => "Dep. gate";
+  String get fieldName_DEPARTURE_TIME => "Actual departure time";
+  String get fieldName_DEPARTURE_TIMEZONE_ => "Dep. timezone";
+  String get fieldName_DEPARTURE_WEATHER => "Dep. weather";
+  String get fieldName_FLIGHT_NUMBER => "Flight number";
+  String get fieldName_LANDING_RUNWAY => "Landing runway";
+  String get fieldName_LANDING_TIME => "Landing time";
+  String get fieldName_MEMO => "Memo";
+  String get fieldName_SCHEDULED_ARRIVAL_TIME => "Scheduled arrival time";
+  String get fieldName_SCHEDULED_DEPARTURE_TIME => "Scheduled departure time";
+  String get fieldName_SEAT_NUMBER => "Seat number";
+  String get fieldName_SERVICE_CLASS => "Service class";
+  String get fieldName_TAKE_OFF_RUNWAY => "Take-off runway";
+  String get fieldName_TAKE_OFF_TIME => "Take-off time";
   String get login => "Login";
   String get loginIdLabel => "Email";
   String get login_failure => "Login failure";
@@ -47,6 +64,7 @@ class S implements WidgetsLocalizations {
   String get settings => "Settings";
   String get showPassword => "Show password";
   String error_empty_field(String label) => "${label} is  mandatory.";
+  String error_invalid_value_format(String fieldName) => "The format of $fieldName is invalid.";
 }
 
 class $ja extends S {
@@ -56,47 +74,77 @@ class $ja extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
+  String get fieldName_ARRIVAL_AIRPORT => "到着空港";
+  @override
+  String get fieldName_SCHEDULED_DEPARTURE_TIME => "出発予定時刻";
+  @override
+  String get fieldName_TAKE_OFF_RUNWAY => "離陸滑走路";
+  @override
+  String get fieldName_LANDING_RUNWAY => "着陸滑走路";
+  @override
+  String get fieldName_DEPARTURE_TIMEZONE_ => "出発地タイムゾーン";
+  @override
+  String get fieldName_DEPARTURE_DATE => "搭乗日";
+  @override
+  String get fieldName_SEAT_NUMBER => "座席番号";
+  @override
   String get login => "ログイン";
   @override
   String get mandatory => "(必須)";
   @override
   String get passwordLabel => "パスワード";
   @override
+  String get fieldName_DEPARTURE_WEATHER => "出発地の天候";
+  @override
   String get login_failure => "ログインできませんでした。";
+  @override
+  String get fieldName_ARRIVAL_GATE => "到着ゲート";
+  @override
+  String get fieldName_DEPARTURE_TIME => "出発時刻";
   @override
   String get loginIdLabel => "メールアドレス";
   @override
   String get logout => "ログアウト";
   @override
-  String get flightFieldLabel_flightNumber => "便名";
-  @override
-  String get flightFieldLabel_airline => "航空会社";
-  @override
-  String get flightFieldLabel_arrivalAirport => "到着空港";
-  @override
-  String get flightFieldLabel_departureDate => "搭乗日";
-  @override
-  String get flightFieldLabel_aircraftRegistration => "機体記号";
-  @override
   String get actionLabel_add => "追加";
+  @override
+  String get fieldName_AIRLINE => "航空会社";
+  @override
+  String get fieldName_SERVICE_CLASS => "サービスクラス";
   @override
   String get settingValue_colorScheme_ana => "ANA";
   @override
   String get dialog_title_confirmation => "確認";
   @override
-  String get flightFieldLabel_departureAirport => "出発空港";
-  @override
   String get settingLabel_colorScheme => "カラースキーム";
+  @override
+  String get fieldName_MEMO => "メモ";
+  @override
+  String get fieldName_DEPARTURE_AIRPORT => "出発空港";
   @override
   String get error_failed_to_add_flight => "フライトの作成に失敗しました。";
   @override
-  String get settings => "設定";
+  String get fieldName_AIRCRAFT_REGISTRATION => "機体記号";
   @override
-  String get flightFieldLabel_aircraftType => "機材";
+  String get settings => "設定";
   @override
   String get confirm_logout => "ログアウトしますか？";
   @override
+  String get fieldName_ARRIVAL_TIMEZONE_ => "到着地タイムゾーン";
+  @override
   String get settingValue_colorScheme_jal => "JAL";
+  @override
+  String get fieldName_FLIGHT_NUMBER => "便名";
+  @override
+  String get fieldName_ARRIVAL_WEATHER => "到着地の天候";
+  @override
+  String get fieldName_SCHEDULED_ARRIVAL_TIME => "到着予定時刻";
+  @override
+  String get fieldName_AIRCRAFT_TYPE => "機材";
+  @override
+  String get fieldName_DEPARTURE_GATE => "出発ゲート";
+  @override
+  String get fieldName_ARRIVAL_TIME => "到着時刻";
   @override
   String get dialog_title_error => "エラー";
   @override
@@ -106,7 +154,13 @@ class $ja extends S {
   @override
   String get confirm_delete_flight => "フライトを削除しますか？";
   @override
+  String get fieldName_LANDING_TIME => "着陸時刻";
+  @override
+  String get fieldName_TAKE_OFF_TIME => "離陸時刻";
+  @override
   String error_empty_field(String label) => "${label}を入力してください。";
+  @override
+  String error_invalid_value_format(String fieldName) => "${fieldName}の形式が正しくありません。";
 }
 
 class $en extends S {
@@ -123,8 +177,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     ];
   }
 
-  LocaleListResolutionCallback listResolution(
-      {Locale fallback, bool withCountry = true}) {
+  LocaleListResolutionCallback listResolution({Locale fallback, bool withCountry = true}) {
     return (List<Locale> locales, Iterable<Locale> supported) {
       if (locales == null || locales.isEmpty) {
         return fallback ?? supported.first;
@@ -134,8 +187,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
     };
   }
 
-  LocaleResolutionCallback resolution(
-      {Locale fallback, bool withCountry = true}) {
+  LocaleResolutionCallback resolution({Locale fallback, bool withCountry = true}) {
     return (Locale locale, Iterable<Locale> supported) {
       return _resolve(locale, fallback, supported, withCountry);
     };
@@ -153,7 +205,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
           S.current = const $en();
           return SynchronousFuture<S>(S.current);
         default:
-        // NO-OP.
+          // NO-OP.
       }
     }
     S.current = const S();
@@ -169,8 +221,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
   ///
   /// Internal method to resolve a locale from a list of locales.
   ///
-  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported,
-      bool withCountry) {
+  Locale _resolve(Locale locale, Locale fallback, Iterable<Locale> supported, bool withCountry) {
     if (locale == null || !_isSupported(locale, withCountry)) {
       return fallback ?? supported.first;
     }
@@ -203,9 +254,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
         }
 
         // If no country requirement is requested, check if this locale has no country.
-        if (true != withCountry &&
-            (supportedLocale.countryCode == null ||
-                supportedLocale.countryCode.isEmpty)) {
+        if (true != withCountry && (supportedLocale.countryCode == null || supportedLocale.countryCode.isEmpty)) {
           return true;
         }
       }
@@ -215,7 +264,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {
 }
 
 String getLang(Locale l) => l == null
-    ? null
-    : l.countryCode != null && l.countryCode.isEmpty
-        ? l.languageCode
-        : l.toString();
+  ? null
+  : l.countryCode != null && l.countryCode.isEmpty
+    ? l.languageCode
+    : l.toString();

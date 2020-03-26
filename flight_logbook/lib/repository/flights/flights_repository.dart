@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 abstract class FlightsRepository {
   Future<List<FlightEntry>> getAllFlights(int year);
 
-  Future<FlightEntry> addFlight(int year, FlightEntry newEntry);
+  Future<FlightEntry> addFlight(int year, Map<String, dynamic> newData);
 
   Future<void> removeFlight(int year, String flightId);
 }
@@ -39,10 +39,9 @@ class FirestoreFlightsRepository extends FlightsRepository {
   Future<List<FlightEntry>> getAllFlights(int year) async {
     final currentUser = await _authRepository.getCurrentUser();
 
-    // TODO orderByで順序を指定する
     return _firestore
         .collection(flightsCollectionPathOf(uid: currentUser.id, year: year))
-        .where(FlightEntry.FIELD_UID, isEqualTo: currentUser.id)
+        .orderBy(FlightEntry.FIELD_ORDER)
         .getDocuments()
         .then(
       (QuerySnapshot snapshot) {
@@ -59,10 +58,10 @@ class FirestoreFlightsRepository extends FlightsRepository {
   }
 
   @override
-  Future<FlightEntry> addFlight(int year, FlightEntry newEntry) async {
+  Future<FlightEntry> addFlight(int year, Map<String, dynamic> newData) async {
     final currentUser = await _authRepository.getCurrentUser();
 
-    final Map<String, dynamic> data = Map.from(newEntry.data);
+    final Map<String, dynamic> data = Map.from(newData);
     data[FlightEntry.FIELD_UID] = currentUser.id;
     final DocumentReference createdDocRef = await Firestore.instance
         .collection(flightsCollectionPathOf(uid: currentUser.id, year: year))

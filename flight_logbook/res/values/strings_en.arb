@@ -37,18 +37,11 @@
   "confirm_delete_flight": "Delete this flight?",
 
   "error_failed_to_add_flight": "Failed to add flight.",
+  "error_invalid_value_format": "The format of $fieldName is invalid.",
   "error_empty_field": "${label} is  mandatory.",
 
   "actionLabel_add": "Add",
   "actionLabel_delete": "Delete",
-
-  "flightFieldLabel_departureDate": "Date",
-  "flightFieldLabel_airline": "Airline",
-  "flightFieldLabel_flightNumber": "Flight Number",
-  "flightFieldLabel_departureAirport": "Departure Airport",
-  "flightFieldLabel_arrivalAirport": "Arrival Airport",
-  "flightFieldLabel_aircraftType": "Aircraft Type",
-  "flightFieldLabel_aircraftRegistration": "Aircraft Registration",
 
   "mandatory": "(mandatory)",
 
@@ -57,4 +50,30 @@
   "settingLabel_colorScheme": "Color scheme",
   "settingValue_colorScheme_ana": "ANA",
   "settingValue_colorScheme_jal": "JAL",
+
+  "fieldName_DEPARTURE_DATE": "Dep. date",
+  "fieldName_AIRLINE": "Airline",
+  "fieldName_FLIGHT_NUMBER": "Flight number",
+  "fieldName_SERVICE_CLASS": "Service class",
+  "fieldName_SEAT_NUMBER": "Seat number",
+  "fieldName_AIRCRAFT_TYPE": "Aircraft type",
+  "fieldName_AIRCRAFT_REGISTRATION": "Aircraft registration",
+  "fieldName_DEPARTURE_AIRPORT": "Dep. airport",
+  "fieldName_ARRIVAL_AIRPORT": "Arrival airport",
+  "fieldName_DEPARTURE_GATE": "Dep. gate",
+  "fieldName_ARRIVAL_GATE": "Arrival gate",
+  "fieldName_DEPARTURE_WEATHER": "Dep. weather",
+  "fieldName_ARRIVAL_WEATHER": "Arrival weather",
+  "fieldName_DEPARTURE_TIMEZONE_": "Dep. timezone",
+  "fieldName_ARRIVAL_TIMEZONE_": "Arrival timezone",
+  "fieldName_SCHEDULED_DEPARTURE_TIME": "Scheduled departure time",
+  "fieldName_SCHEDULED_ARRIVAL_TIME": "Scheduled arrival time",
+  "fieldName_DEPARTURE_TIME": "Actual departure time",
+  "fieldName_ARRIVAL_TIME": "Actual arrival time",
+  "fieldName_TAKE_OFF_TIME": "Take-off time",
+  "fieldName_LANDING_TIME": "Landing time",
+  "fieldName_TAKE_OFF_RUNWAY": "Take-off runway",
+  "fieldName_LANDING_RUNWAY": "Landing runway",
+  "fieldName_MEMO": "Memo"
+
 }

@@ -23,18 +23,15 @@ class AddFlightScreen extends StatefulWidget {
 
 class _FieldEntry {
   final String fieldName;
-  final String label;
   final String valueExample;
   final bool mandatory;
   final TextEditingController editingController;
 
   _FieldEntry({
     @required this.fieldName,
-    @required this.label,
     @required this.valueExample,
     this.mandatory = false,
   })  : assert(fieldName != null && fieldName.isNotEmpty),
-        assert(label != null && label.isNotEmpty),
         assert(valueExample != null && valueExample.isNotEmpty),
         assert(mandatory != null),
         editingController = TextEditingController();
@@ -47,42 +44,44 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final S s = S.of(context);
     _fields = [
       _FieldEntry(
         fieldName: FlightEntry.FIELD_DEPARTURE_DATE,
-        label: s.flightFieldLabel_departureDate,
         valueExample: "例: ${DateFormat('MM/dd').format(DateTime.now())}",
         mandatory: true,
       ),
       _FieldEntry(
+        fieldName: FlightEntry.FIELD_DEPARTURE_TIME,
+        valueExample: "例: 1225",
+        mandatory: true,
+      ),
+      _FieldEntry(
+        fieldName: FlightEntry.FIELD_DEPARTURE_TIMEZONE,
+        valueExample: "例: +0900",
+        mandatory: true,
+      ),
+      _FieldEntry(
         fieldName: FlightEntry.FIELD_AIRLINE,
-        label: s.flightFieldLabel_airline,
         valueExample: '例: ANA',
       ),
       _FieldEntry(
         fieldName: FlightEntry.FIELD_FLIGHT_NUMBER,
-        label: s.flightFieldLabel_flightNumber,
         valueExample: '例: NH885',
       ),
       _FieldEntry(
         fieldName: FlightEntry.FIELD_DEPARTURE_AIRPORT,
-        label: s.flightFieldLabel_departureAirport,
         valueExample: '例: HND',
       ),
       _FieldEntry(
         fieldName: FlightEntry.FIELD_ARRIVAL_AIRPORT,
-        label: s.flightFieldLabel_arrivalAirport,
         valueExample: '例: KUL',
       ),
       _FieldEntry(
         fieldName: FlightEntry.FIELD_AIRCRAFT_TYPE,
-        label: s.flightFieldLabel_aircraftType,
         valueExample: '例: B787-9',
       ),
       _FieldEntry(
         fieldName: FlightEntry.FIELD_AIRCRAFT_REGISTRATION,
-        label: s.flightFieldLabel_aircraftRegistration,
         valueExample: '例: JA890A',
       ),
     ];
@@ -138,18 +137,35 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
               // state is AddFlightInitial || state is AddFlightAdding || state is AddFlightFailure
 
               if (state is AddFlightFailure) {
-                // このタイミングではダイアログをだせないので遅延実行する
-                Future.delayed(
-                  const Duration(milliseconds: 10),
-                  () => AwesomeDialog(
-                    context: context,
-                    animType: AnimType.TOPSLIDE,
-                    dialogType: DialogType.ERROR,
-                    tittle: s.dialog_title_error,
-                    desc: s.error_failed_to_add_flight,
-                    btnOkOnPress: () => null,
-                  ).show(),
-                );
+                final cause = state.cause;
+                if (cause is InvalidPropertyValueFormatException) {
+                  // このタイミングではダイアログをだせないので遅延実行する
+                  Future.delayed(
+                    const Duration(milliseconds: 10),
+                    () => AwesomeDialog(
+                      context: context,
+                      animType: AnimType.TOPSLIDE,
+                      dialogType: DialogType.ERROR,
+                      tittle: s.dialog_title_error,
+                      desc: s.error_invalid_value_format(
+                          FlightEntry.toDisplayFieldName(
+                              s, cause.propertyName)),
+                      btnOkOnPress: () => null,
+                    ).show(),
+                  );
+                } else {
+                  Future.delayed(
+                    const Duration(milliseconds: 10),
+                    () => AwesomeDialog(
+                      context: context,
+                      animType: AnimType.TOPSLIDE,
+                      dialogType: DialogType.ERROR,
+                      tittle: s.dialog_title_error,
+                      desc: s.error_failed_to_add_flight,
+                      btnOkOnPress: () => null,
+                    ).show(),
+                  );
+                }
               }
               return Stack(
                 children: [
@@ -186,7 +202,8 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
         (stillValid, e) =>
             stillValid &&
             (!e.mandatory ||
-                _checkNotEmpty(context, s, e.editingController.text, e.label)),
+                _checkNotEmpty(context, s, e.editingController.text,
+                    FlightEntry.toDisplayFieldName(s, e.fieldName))),
       );
 
   static Widget _buildTextField(_FieldEntry entry, S s) {
@@ -195,7 +212,8 @@ class _AddFlightScreenState extends State<AddFlightScreen> {
       child: TextFormField(
         controller: entry.editingController,
         decoration: new InputDecoration(
-          labelText: "${entry.label}${entry.mandatory ? s.mandatory : ''}",
+          labelText:
+              "${FlightEntry.toDisplayFieldName(s, entry.fieldName)}${entry.mandatory ? s.mandatory : ''}",
           hintText: entry.valueExample,
           border: new OutlineInputBorder(
               borderSide: new BorderSide(color: Color(TRITON_BLUE))),

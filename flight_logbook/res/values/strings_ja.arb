@@ -37,18 +37,11 @@
   "confirm_delete_flight": "フライトを削除しますか？",
 
   "error_failed_to_add_flight": "フライトの作成に失敗しました。",
+  "error_invalid_value_format": "${fieldName}の形式が正しくありません。",
   "error_empty_field": "${label}を入力してください。",
 
   "actionLabel_add": "追加",
   "actionLabel_delete": "削除",
-
-  "flightFieldLabel_departureDate": "搭乗日",
-  "flightFieldLabel_airline": "航空会社",
-  "flightFieldLabel_flightNumber": "便名",
-  "flightFieldLabel_departureAirport": "出発空港",
-  "flightFieldLabel_arrivalAirport": "到着空港",
-  "flightFieldLabel_aircraftType": "機材",
-  "flightFieldLabel_aircraftRegistration": "機体記号",
 
   "mandatory": "(必須)",
 
@@ -57,4 +50,30 @@
   "settingLabel_colorScheme": "カラースキーム",
   "settingValue_colorScheme_ana": "ANA",
   "settingValue_colorScheme_jal": "JAL",
+
+  "fieldName_DEPARTURE_DATE": "搭乗日",
+  "fieldName_AIRLINE": "航空会社",
+  "fieldName_FLIGHT_NUMBER": "便名",
+  "fieldName_SERVICE_CLASS": "サービスクラス",
+  "fieldName_SEAT_NUMBER": "座席番号",
+  "fieldName_AIRCRAFT_TYPE": "機材",
+  "fieldName_AIRCRAFT_REGISTRATION": "機体記号",
+  "fieldName_DEPARTURE_AIRPORT": "出発空港",
+  "fieldName_ARRIVAL_AIRPORT": "到着空港",
+  "fieldName_DEPARTURE_GATE": "出発ゲート",
+  "fieldName_ARRIVAL_GATE": "到着ゲート",
+  "fieldName_DEPARTURE_WEATHER": "出発地の天候",
+  "fieldName_ARRIVAL_WEATHER": "到着地の天候",
+  "fieldName_DEPARTURE_TIMEZONE_": "出発地タイムゾーン",
+  "fieldName_ARRIVAL_TIMEZONE_": "到着地タイムゾーン",
+  "fieldName_SCHEDULED_DEPARTURE_TIME": "出発予定時刻",
+  "fieldName_SCHEDULED_ARRIVAL_TIME": "到着予定時刻",
+  "fieldName_DEPARTURE_TIME": "出発時刻",
+  "fieldName_ARRIVAL_TIME": "到着時刻",
+  "fieldName_TAKE_OFF_TIME": "離陸時刻",
+  "fieldName_LANDING_TIME": "着陸時刻",
+  "fieldName_TAKE_OFF_RUNWAY": "離陸滑走路",
+  "fieldName_LANDING_RUNWAY": "着陸滑走路",
+  "fieldName_MEMO": "メモ"
+
 }
