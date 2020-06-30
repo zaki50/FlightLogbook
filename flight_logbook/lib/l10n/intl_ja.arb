@@ -37,8 +37,8 @@
   "confirm_delete_flight": "フライトを削除しますか？",
 
   "error_failed_to_add_flight": "フライトの作成に失敗しました。",
-  "error_invalid_value_format": "${fieldName}の形式が正しくありません。",
-  "error_empty_field": "${label}を入力してください。",
+  "error_invalid_value_format": "{fieldName}の形式が正しくありません。",
+  "error_empty_field": "{label}を入力してください。",
 
   "actionLabel_add": "追加",
   "actionLabel_delete": "削除",

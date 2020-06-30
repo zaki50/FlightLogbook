@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:equatable/equatable.dart';
-import 'package:flightlogbook/generated/i18n.dart';
+import 'package:flightlogbook/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 
 class FlightEntry extends Equatable {

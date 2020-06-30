@@ -6,7 +6,7 @@ import 'package:flightlogbook/bloc/flights/flights_event.dart';
 import 'package:flightlogbook/bloc/flights/flights_state.dart';
 import 'package:flightlogbook/bloc/settings/settings_bloc.dart';
 import 'package:flightlogbook/bloc/settings/settings_event.dart';
-import 'package:flightlogbook/generated/i18n.dart';
+import 'package:flightlogbook/generated/l10n.dart';
 import 'package:flightlogbook/pages.dart';
 import 'package:flightlogbook/repository/authentication/authentication_repository.dart';
 import 'package:flightlogbook/repository/flights/flight_entry.dart';

@@ -2,7 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flightlogbook/bloc/add_flight/add_flight_bloc.dart';
 import 'package:flightlogbook/bloc/add_flight/add_flight_event.dart';
 import 'package:flightlogbook/bloc/add_flight/add_flight_state.dart';
-import 'package:flightlogbook/generated/i18n.dart';
+import 'package:flightlogbook/generated/l10n.dart';
 import 'package:flightlogbook/main.dart';
 import 'package:flightlogbook/repository/authentication/authentication_repository.dart';
 import 'package:flightlogbook/repository/flights/flight_entry.dart';

@@ -1,7 +1,7 @@
 import 'package:flightlogbook/bloc/settings/settings_bloc.dart';
 import 'package:flightlogbook/bloc/settings/settings_event.dart';
 import 'package:flightlogbook/bloc/settings/settings_state.dart';
-import 'package:flightlogbook/generated/i18n.dart';
+import 'package:flightlogbook/generated/l10n.dart';
 import 'package:flightlogbook/repository/settings/settings_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

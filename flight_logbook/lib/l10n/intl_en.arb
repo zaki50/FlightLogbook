@@ -37,8 +37,8 @@
   "confirm_delete_flight": "Delete this flight?",
 
   "error_failed_to_add_flight": "Failed to add flight.",
-  "error_invalid_value_format": "The format of $fieldName is invalid.",
-  "error_empty_field": "${label} is  mandatory.",
+  "error_invalid_value_format": "The format of {fieldName} is invalid.",
+  "error_empty_field": "{label} is  mandatory.",
 
   "actionLabel_add": "Add",
   "actionLabel_delete": "Delete",
